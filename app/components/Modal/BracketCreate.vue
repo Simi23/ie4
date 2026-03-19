@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { bracketCreateSchema } from "~/schemas/bracket";
+import { bracketCreateSchema } from "#shared/schemas/bracket";
 
 const loadingSpinner = useLoadingSpinner();
 

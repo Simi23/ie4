@@ -63,8 +63,8 @@
 </template>
 
 <script lang="ts" setup>
-import { initSchema } from "~/schemas/initSchema";
-import type { InitSchema } from "~/schemas/initSchema";
+import { initSchema } from "#shared/schemas/initSchema";
+import type { InitSchema } from "#shared/schemas/initSchema";
 import type { FormSubmitEvent } from "#ui/types";
 import type { UForm } from "#build/components";
 

@@ -1,6 +1,6 @@
-import { prisma } from "~/db/prismaClient";
-import adminCheck from "~/utils/adminCheck";
-import createNotification from "~/utils/createNotification";
+import { prisma } from "~~/db/prismaClient";
+import adminCheck from "#server/utils/adminCheck";
+import createNotification from "#server/utils/createNotification";
 
 export default defineEventHandler(async (event) => {
   adminCheck(event, 2);

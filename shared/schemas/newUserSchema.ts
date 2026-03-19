@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 
 export const newUserSchema = z.object({
   email: z.string().email("Helytelen email cím!"),

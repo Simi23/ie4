@@ -317,7 +317,7 @@ import {
   type RegistrationSchema2p3,
   type RegistrationSchema3p3,
   type RegistrationSchemaSeat,
-} from "~/schemas/registrationSchema";
+} from "#shared/schemas/registrationSchema";
 import { type UForm } from "#build/components";
 import ClassSelect from "~/components/Class/Select.vue";
 import CarouselMenu from "~/components/CarouselMenu.vue";

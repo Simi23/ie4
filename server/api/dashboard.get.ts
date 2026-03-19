@@ -1,4 +1,4 @@
-import { prisma } from "~/db/prismaClient";
+import { prisma } from "~~/db/prismaClient";
 
 type DashboardNotification = {
   severity: "INFO" | "WARN" | "ERROR";

@@ -1,7 +1,7 @@
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
-import createNotification from "~/utils/createNotification";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
+import createNotification from "#server/utils/createNotification";
+import { logEventAction } from "#server/utils/logger";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");

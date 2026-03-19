@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { newUserSchema } from "~/schemas/newUserSchema";
+import { newUserSchema } from "#shared/schemas/newUserSchema";
 
 const emit = defineEmits<{
   success: [];

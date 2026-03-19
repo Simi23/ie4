@@ -1,5 +1,5 @@
-import { prisma } from "~/db/prismaClient";
-import { sha256 } from "~/utils/hash";
+import { prisma } from "~~/db/prismaClient";
+import { sha256 } from "#server/utils/hash";
 
 interface UserData {
   id: string;

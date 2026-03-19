@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { prisma } from "~/db/prismaClient";
-import { bracketCreateSchema } from "~/schemas/bracket";
-import adminCheck from "~/utils/adminCheck";
-import { catchError } from "~/utils/catchError";
-import createNotification from "~/utils/createNotification";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import { bracketCreateSchema } from "#shared/schemas/bracket";
+import adminCheck from "#server/utils/adminCheck";
+import { catchError } from "#server/utils/catchError";
+import createNotification from "#server/utils/createNotification";
+import { logEventAction } from "#server/utils/logger";
 
 interface BracketPart {
   round: number;

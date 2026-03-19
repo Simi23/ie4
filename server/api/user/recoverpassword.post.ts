@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
-import createNotification from "~/utils/createNotification";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
+import createNotification from "#server/utils/createNotification";
+import { logEventAction } from "#server/utils/logger";
 import * as argon2 from "argon2";
 
 const schema = z.object({

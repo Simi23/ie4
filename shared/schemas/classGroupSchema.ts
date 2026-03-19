@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 
 export const classGroupSchema = z.object({
   name: z.string(),

@@ -1,7 +1,7 @@
-import adminCheck from "~/utils/adminCheck";
-import { classSchema } from "~/schemas/classSchema";
-import { prisma } from "~/db/prismaClient";
-import createNotification from "~/utils/createNotification";
+import adminCheck from "#server/utils/adminCheck";
+import { classSchema } from "#shared/schemas/classSchema";
+import { prisma } from "~~/db/prismaClient";
+import createNotification from "#server/utils/createNotification";
 
 export default defineEventHandler(async (event) => {
   adminCheck(event, 2);

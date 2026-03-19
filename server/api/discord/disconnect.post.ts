@@ -1,6 +1,6 @@
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
-import createNotification from "~/utils/createNotification";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
+import createNotification from "#server/utils/createNotification";
 
 export default defineEventHandler(async (event) => {
   if (event.context.user === undefined) {

@@ -1,9 +1,9 @@
-import createNotification from "~/utils/createNotification";
-import { testMail, lastCallMail } from "~/mail/mail";
+import createNotification from "#server/utils/createNotification";
+import { testMail, lastCallMail } from "~~/mail/mail";
 import { z } from "zod";
-import adminCheck from "~/utils/adminCheck";
-import { prisma } from "~/db/prismaClient";
-import { mailLimiter } from "~/utils/limiter";
+import adminCheck from "#server/utils/adminCheck";
+import { prisma } from "~~/db/prismaClient";
+import { mailLimiter } from "#server/utils/limiter";
 
 const schema = z.object({
   openTime: z.string().min(1),

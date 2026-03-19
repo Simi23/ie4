@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts" setup>
-import { userEditSchema } from "~/schemas/userEditSchema";
+import { userEditSchema } from "#shared/schemas/userEditSchema";
 import type { Badge, UserData } from "~/utils/types";
 
 interface Props {

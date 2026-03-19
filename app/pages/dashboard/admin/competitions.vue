@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type CompetitionSchema } from "~/schemas/competitionSchema";
+import { type CompetitionSchema } from "#shared/schemas/competitionSchema";
 import ModalCompetitionEdit from "~/components/Modal/CompetitionEdit.vue";
 import ModalConfirmAction from "~/components/Modal/ConfirmAction.vue";
 

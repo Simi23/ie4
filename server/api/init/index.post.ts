@@ -1,7 +1,7 @@
-import { prisma } from "~/db/prismaClient";
-import { initSchema } from "~/schemas/initSchema";
-import createNotification from "~/utils/createNotification";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import { initSchema } from "#shared/schemas/initSchema";
+import createNotification from "#server/utils/createNotification";
+import { logEventAction } from "#server/utils/logger";
 import * as argon2 from "argon2";
 
 export default defineEventHandler(async (event) => {

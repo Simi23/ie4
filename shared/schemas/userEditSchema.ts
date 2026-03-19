@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 
 export const userEditSchema = z.object({
   fullname: z.string().min(1, "Kötelező"),

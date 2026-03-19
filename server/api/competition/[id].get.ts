@@ -1,6 +1,6 @@
-import { prisma } from "~/db/prismaClient";
-import adminCheck from "~/utils/adminCheck";
-import { catchError } from "~/utils/catchError";
+import { prisma } from "~~/db/prismaClient";
+import adminCheck from "#server/utils/adminCheck";
+import { catchError } from "#server/utils/catchError";
 
 export type CompetitionReturn = {
   teams: {

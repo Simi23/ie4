@@ -1,5 +1,5 @@
-import { prisma } from "~/db/prismaClient";
-import type { MailSettingSchema } from "~/schemas/mailSettingSchema";
+import { prisma } from "~~/db/prismaClient";
+import type { MailSettingSchema } from "#shared/schemas/mailSettingSchema";
 
 export default defineEventHandler(async (event) => {
   if (Number(event.context.user?.adminClass ?? 0) < 2) {

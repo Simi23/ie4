@@ -1,5 +1,5 @@
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
 import { parseMarkdown } from "@nuxtjs/mdc/runtime";
 
 export default defineEventHandler(async (event) => {

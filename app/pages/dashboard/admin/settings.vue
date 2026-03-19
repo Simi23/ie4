@@ -265,7 +265,7 @@
 import {
   mailSettingSchema,
   type MailSettingSchema,
-} from "~/schemas/mailSettingSchema";
+} from "#shared/schemas/mailSettingSchema";
 
 definePageMeta({
   layout: "dashboard-admin",

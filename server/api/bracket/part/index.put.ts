@@ -1,9 +1,9 @@
 import { brotliDecompressSync } from "zlib";
 import { z } from "zod";
-import { prisma } from "~/db/prismaClient";
-import adminCheck from "~/utils/adminCheck";
-import { catchError } from "~/utils/catchError";
-import createNotification from "~/utils/createNotification";
+import { prisma } from "~~/db/prismaClient";
+import adminCheck from "#server/utils/adminCheck";
+import { catchError } from "#server/utils/catchError";
+import createNotification from "#server/utils/createNotification";
 
 const schema = z.object({
   started: z.boolean(),

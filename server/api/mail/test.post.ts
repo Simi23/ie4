@@ -1,5 +1,5 @@
-import createNotification from "~/utils/createNotification";
-import { testMail } from "~/mail/mail";
+import createNotification from "#server/utils/createNotification";
+import { testMail } from "~~/mail/mail";
 
 export default defineEventHandler(async (event) => {
   if (Number(event.context.user?.adminClass ?? 0) < 2) {

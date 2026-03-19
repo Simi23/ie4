@@ -1,9 +1,9 @@
 import { existsSync } from "fs";
 import { mkdir, writeFile } from "fs/promises";
-import { prisma } from "~/db/prismaClient";
-import adminCheck from "~/utils/adminCheck";
-import createNotification from "~/utils/createNotification";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import adminCheck from "#server/utils/adminCheck";
+import createNotification from "#server/utils/createNotification";
+import { logEventAction } from "#server/utils/logger";
 
 export default defineEventHandler(async (event) => {
   adminCheck(event, 2);

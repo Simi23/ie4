@@ -1,8 +1,8 @@
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
+import { logEventAction } from "#server/utils/logger";
 import { randomBytes } from "crypto";
-import { sha256 } from "~/utils/hash";
+import { sha256 } from "#server/utils/hash";
 
 export default defineEventHandler(async (event) => {
   const q = getQuery(event);

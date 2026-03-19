@@ -139,7 +139,7 @@ import {
   loginStage2Schema,
   type LoginStage1Schema,
   type LoginStage2Schema,
-} from "~/schemas/loginSchemas";
+} from "#shared/schemas/loginSchemas";
 import type { FormSubmitEvent } from "#ui/types";
 import type CarouselMenu from "~/components/CarouselMenu.vue";
 

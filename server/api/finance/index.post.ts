@@ -1,6 +1,6 @@
-import { prisma } from "~/db/prismaClient";
-import { logEventAction } from "~/utils/logger";
-import { financeUpdateSchema } from "~/schemas/financeUpdateSchema";
+import { prisma } from "~~/db/prismaClient";
+import { logEventAction } from "#server/utils/logger";
+import { financeUpdateSchema } from "#shared/schemas/financeUpdateSchema";
 
 export default defineEventHandler(async (event) => {
   const body = await readValidatedBody(event, financeUpdateSchema.safeParse);

@@ -1,4 +1,4 @@
-import { prisma } from "~/db/prismaClient";
+import { prisma } from "~~/db/prismaClient";
 
 export default defineEventHandler(async (event) => {
   if (event.context.user === undefined || event.context.loggedIn === false) {

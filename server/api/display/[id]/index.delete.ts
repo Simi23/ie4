@@ -1,9 +1,9 @@
-import { prisma } from "~/db/prismaClient";
-import adminCheck from "~/utils/adminCheck";
-import { catchError } from "~/utils/catchError";
-import createNotification from "~/utils/createNotification";
-import { incrementDisplaySerial } from "~/utils/displaySerial";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import adminCheck from "#server/utils/adminCheck";
+import { catchError } from "#server/utils/catchError";
+import createNotification from "#server/utils/createNotification";
+import { incrementDisplaySerial } from "#server/utils/displaySerial";
+import { logEventAction } from "#server/utils/logger";
 
 export default defineEventHandler(async (event) => {
   adminCheck(event, 2);

@@ -1,12 +1,12 @@
-import { prisma } from "~/db/prismaClient";
+import { prisma } from "~~/db/prismaClient";
 import {
   registrationSchema,
   type RegistrationSchema,
-} from "~/schemas/registrationSchema";
+} from "#shared/schemas/registrationSchema";
 import type { SafeParseReturnType } from "zod";
-import { logEventAction } from "~/utils/logger";
-import createNotification from "~/utils/createNotification";
-import { registerMail } from "~/mail/mail";
+import { logEventAction } from "#server/utils/logger";
+import createNotification from "#server/utils/createNotification";
+import { registerMail } from "~~/mail/mail";
 import * as argon2 from "argon2";
 
 export default defineEventHandler(async (event) => {

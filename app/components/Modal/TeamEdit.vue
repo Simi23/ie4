@@ -180,8 +180,6 @@
 </template>
 
 <script lang="ts" setup>
-import { type TeamResponse } from "~/server/api/team/[id].get";
-
 interface Props {
   teamId: string;
 }
@@ -211,9 +209,7 @@ const currentAction = ref<"delTeam" | "leave" | "kick">();
 
 const renaming = ref(false);
 
-const { data: team, refresh } = await useFetch<TeamResponse>(
-  `/api/team/${props.teamId}`,
-);
+const { data: team, refresh } = await useFetch(`/api/team/${props.teamId}`);
 
 const emit = defineEmits<{
   finish: [refresh: boolean];

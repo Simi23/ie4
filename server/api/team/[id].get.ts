@@ -1,5 +1,5 @@
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
 
 export type TeamResponse = {
   name: string;

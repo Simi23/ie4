@@ -1,4 +1,4 @@
-import { prisma } from "~/db/prismaClient";
+import { prisma } from "~~/db/prismaClient";
 
 export default defineEventHandler(async (event) => {
   const showHidden = getQuery(event).showhidden == "1";

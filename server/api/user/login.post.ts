@@ -1,9 +1,9 @@
-import { prisma } from "~/db/prismaClient";
-import { loginStage2Schema } from "~/schemas/loginSchemas";
-import createNotification from "~/utils/createNotification";
-import { logEventAction } from "~/utils/logger";
+import { prisma } from "~~/db/prismaClient";
+import { loginStage2Schema } from "#shared/schemas/loginSchemas";
+import createNotification from "#server/utils/createNotification";
+import { logEventAction } from "#server/utils/logger";
 import { randomBytes } from "crypto";
-import { sha256 } from "~/utils/hash";
+import { sha256 } from "#server/utils/hash";
 import * as argon2 from "argon2";
 
 export default defineEventHandler(async (event) => {

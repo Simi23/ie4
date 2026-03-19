@@ -1,8 +1,8 @@
 import { createTransport } from "nodemailer";
-import { prisma } from "~/db/prismaClient";
+import { prisma } from "~~/db/prismaClient";
 import type { Transporter } from "nodemailer";
 import type SMTPTransport from "nodemailer/lib/smtp-transport";
-import { catchError } from "~/utils/catchError";
+import { catchError } from "#server/utils/catchError";
 
 interface EmailSettings {
   host: string;

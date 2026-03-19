@@ -1,4 +1,4 @@
-import { prisma } from "~/db/prismaClient";
+import { prisma } from "~~/db/prismaClient";
 
 export default defineEventHandler(async (event) => {
   if (Number(event.context.user?.adminClass ?? 0) < 1) {

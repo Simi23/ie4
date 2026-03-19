@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts" setup>
-import { classGroupSchema } from "~/schemas/classGroupSchema";
-import type { ClassGroupSchema } from "~/schemas/classGroupSchema";
+import { classGroupSchema } from "#shared/schemas/classGroupSchema";
+import type { ClassGroupSchema } from "#shared/schemas/classGroupSchema";
 
 const eventBus = useMittBus();
 const loadingSpinner = useLoadingSpinner();

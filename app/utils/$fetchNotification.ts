@@ -1,4 +1,4 @@
-import { getLocale } from "~/assets/lang";
+import { getLocale } from "~~/lang";
 const toast = useToast();
 
 export default $fetch.create({

@@ -2,7 +2,7 @@
 import {
   competitionSchema,
   type CompetitionSchema,
-} from "~/schemas/competitionSchema";
+} from "#shared/schemas/competitionSchema";
 
 type Props = {
   title?: string;

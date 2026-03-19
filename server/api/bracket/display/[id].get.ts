@@ -1,6 +1,6 @@
-import { prisma } from "~/db/prismaClient";
-import { catchError } from "~/utils/catchError";
-import type { CellData, DisplayBracket } from "~/utils/types";
+import { prisma } from "~~/db/prismaClient";
+import { catchError } from "#server/utils/catchError";
+import type { CellData, DisplayBracket } from "#server/utils/types";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
