@@ -122,7 +122,7 @@
         <div class="flex flex-row justify-between">
           <div>
             <UForm :state="inviteState" @submit.prevent="inviteUser">
-              <UButtonGroup v-if="imLeader">
+              <UFieldGroup v-if="imLeader">
                 <UInput
                   placeholder="Felhasználónév"
                   v-model="inviteState.username"
@@ -137,7 +137,7 @@
                     :disabled="loading.invite || fullTeam"
                   />
                 </UTooltip>
-              </UButtonGroup>
+              </UFieldGroup>
             </UForm>
           </div>
 

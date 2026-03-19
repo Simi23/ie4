@@ -57,7 +57,6 @@ export default defineNuxtConfig({
       },
     ],
     "@nuxt/eslint",
-    "@nuxt/icon",
     "@nuxtjs/mdc",
   ],
   imports: {
@@ -69,12 +68,6 @@ export default defineNuxtConfig({
   mdc: {
     components: {
       prose: false,
-    },
-  },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
     },
   },
   googleFonts: {
