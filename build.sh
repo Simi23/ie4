@@ -1,5 +1,5 @@
 #!/bin/bash
-pname="simi23/ie3"
+pname="simi23/ie4"
 read -p "MAJOR Version: " vmajor
 read -p "MINOR Version: " vminor
 read -p "PATCH Version: " vpatch

@@ -1,16 +1,16 @@
 {
-  "name": "ie3",
+  "name": "ie4",
   "private": true,
   "type": "module",
-  "version": "0.11.3",
+  "version": "0.0.1",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "start:prod": "node server/index.mjs",
-    "start:migrate:prod": "npx prisma migrate deploy && npm run start:prod"
+    "start:prod": "bun run server/index.mjs",
+    "start:migrate:prod": "bun --bun run prisma migrate deploy && bun run start:prod"
   },
   "dependencies": {
     "@iconify-json/fa6-brands": "^1.2.5",
@@ -24,7 +24,8 @@
     "@nuxtjs/mdc": "0.13.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "@pinia/nuxt": "0.9.0",
-    "@prisma/client": "6.2.1",
+    "@prisma/adapter-pg": "^7.5.0",
+    "@prisma/client": "7",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue-email/components": "0.0.21",
     "@vue-email/render": "^0.0.9",
@@ -57,7 +58,7 @@
     "postcss": "8.5.1",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "0.6.10",
-    "prisma": "6.2.1",
+    "prisma": "7",
     "tailwindcss": "3.4.17",
     "ts-node": "^10.9.2",
     "typescript": "5.7.3",
