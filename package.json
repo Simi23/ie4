@@ -36,7 +36,7 @@
     "limiter": "^3.0.0",
     "mitt": "^3.0.1",
     "nodemailer": "^6.9.14",
-    "nuxt": "^3.15.2",
+    "nuxt": "^4.0.0",
     "nuxt-security": "^2.0.0-rc.9",
     "pinia": "^2.3.0",
     "redis": "4.7.0",
