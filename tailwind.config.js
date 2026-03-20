@@ -13,7 +13,7 @@ export default {
     extend: {
       backgroundImage: {
         "mail-bg": "url('https://i.imgur.com/I9gDeaL.png')",
-        "web-bg": "url('/background.webp')",
+        "web-bg": "url('/background2.webp')",
       },
       screens: {
         sm: "480px",
@@ -97,6 +97,19 @@ export default {
           800: "#5865F2",
           900: "#5865F2",
           950: "#5865F2",
+        },
+        "blue-bayoux": {
+          50: "#f6f7f9",
+          100: "#ebeef3",
+          200: "#d3dbe4",
+          300: "#adbccc",
+          400: "#8098b0",
+          500: "#607b97",
+          600: "#4c637d",
+          700: "#3e5066",
+          800: "#364556",
+          900: "#313c49",
+          950: "#202731",
         },
       },
     },
