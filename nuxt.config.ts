@@ -1,7 +1,7 @@
 import vuePlugin from "@vitejs/plugin-vue";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2024-04-03",
+  compatibilityDate: "2025-07-15",
   runtimeConfig: {
     public: {
       siteName: "",
@@ -30,7 +30,7 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  css: ["~/assets/css/main.css"],
+  css: ["./app/assets/css/main.css"],
   colorMode: {
     preference: "dark",
   },

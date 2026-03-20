@@ -1,8 +1,16 @@
 {
-  "editor.formatOnSave": true,
-  "css.lint.unknownAtRules": "ignore",
+  "prettier.bracketSameLine": true,
+    "css.lint.unknownAtRules": "ignore",
   "files.associations": {
-    "*.css": "postcss"
+    "*.css": "tailwindcss"
   },
-  "prettier.bracketSameLine": true
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  // "tailwindCSS.experimental.classRegex": [
+  //   ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  // ],
+  "editor.formatOnSave": true,
+  "prisma.schemaPath": "prisma/"
 }
