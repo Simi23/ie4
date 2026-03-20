@@ -7,6 +7,15 @@ export default defineEventHandler(async (event) => {
       type: "Registration",
     },
   });
+  const totalSeats = await prisma.seat.count({
+    where: {
+      type: "Registration",
+    },
+  });
 
-  return { count: freeSeats };
+  return {
+    totalSeats,
+    freeSeats,
+    occupiedSeats: totalSeats - freeSeats,
+  };
 });

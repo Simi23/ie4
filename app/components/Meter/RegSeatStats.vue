@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="mb-2 text-lg font-semibold">Ülőhelyek</h2>
+    <h2 class="mb-2 text-lg font-semibold">Regisztrációs helyek</h2>
     <UMeter
       :value="seatStats.occupiedSeats"
       :max="seatStats.totalSeats"
@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 const { data: seatStats, refresh: refreshSeatStats } = useFetch(
-  "/api/stat/seats",
+  "/api/stat/regseats",
   {
     lazy: true,
     default: () => {
@@ -33,7 +33,6 @@ const { data: seatStats, refresh: refreshSeatStats } = useFetch(
         totalSeats: 0,
         freeSeats: 0,
         occupiedSeats: 0,
-        hiddenSeats: 0,
       };
     },
   },

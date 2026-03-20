@@ -257,7 +257,7 @@
               <p class="text-center">
                 Szabad helyek száma:
                 <span class="font-bold">{{
-                  freeSeatCount?.count ?? "Ismeretlen"
+                  freeSeatCount?.freeSeats ?? "Ismeretlen"
                 }}</span>
               </p>
 
