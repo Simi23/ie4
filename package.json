@@ -63,5 +63,8 @@
     "ts-node": "^10.9.2",
     "typescript": "5.9.3",
     "vue-tsc": "3.2.6"
+  },
+  "patchedDependencies": {
+    "tailwindcss@3.4.17": "patches/tailwindcss@3.4.17.patch"
   }
 }
