@@ -101,9 +101,10 @@ function resetSeats() {
 
   rSeatMap.value.clearSeatEvents();
   rSeatMap.value.changeSeatColour("all", "#b91c1c");
-  if (seatData === null || seatData.value === null) return;
+  if (!seatData || !seatData.value) return;
   for (let i = 0; i < seatData.value.length; i++) {
     const curSeat = seatData.value[i];
+    if (!curSeat) continue;
     if (curSeat.owner === null) {
       rSeatMap.value.changeSeatColour(curSeat.name, "#059669");
     } else {

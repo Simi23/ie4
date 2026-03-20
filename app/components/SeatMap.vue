@@ -32,6 +32,7 @@ function getSeat(seatName: string): SVGRectElement | null {
 
   for (let i = 0; i < rects.length; i++) {
     const r = rects[i];
+    if (!r) continue;
     const seatNameCur =
       r.attributes.getNamedItem("inkscape:label")?.value ?? "unknown";
     if (seatNameCur == seatName) {
@@ -81,7 +82,9 @@ function changeSeatColour(seatName: string, color: string, changeBase = true) {
     let rects = getAllSeats();
     if (rects == null) return;
     for (let i = 0; i < rects.length; i++) {
-      rects[i].style.fill = color;
+      const r = rects[i];
+      if (!r) continue;
+      r.style.fill = color;
     }
     return;
   }
@@ -134,7 +137,7 @@ function cancelHighlight(): void {
   keys.forEach((key) => {
     const curSeat = getSeat(key);
     if (curSeat === null) return;
-    curSeat.style.fill = originalColors.value[key];
+    curSeat.style.fill = originalColors.value[key] ?? "#000";
   });
 }
 
@@ -152,6 +155,7 @@ function assignSeat(seatName: string, emitName?: string) {
 
   for (let i = 0; i < rects.length; i++) {
     const r = rects[i];
+    if (!r) continue;
     const seatNameCur =
       r.attributes.getNamedItem("inkscape:label")?.value ?? "unknown";
 
@@ -190,6 +194,7 @@ function clearSeatEvents() {
 
   for (let i = 0; i < rects.length; i++) {
     const r = rects[i];
+    if (!r) continue;
     const seatNameCur =
       r.attributes.getNamedItem("inkscape:label")?.value ?? "unknown";
 
@@ -214,121 +219,122 @@ defineExpose({
   <div class="select-none">
     <ClientOnly>
       <svg
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:cc="http://creativecommons.org/ns#"
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:svg="http://www.w3.org/2000/svg"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-        sodipodi:docname="elrendezes.svg"
-        inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-        version="1.1"
-        viewBox="0 0 545.5027 349.90647"
-        height="100%"
-        width="100%"
         :id="svgId"
+        width="100%"
+        height="100%"
+        viewBox="0 0 500.00001 321.00001"
+        version="1.1"
+        inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
+        sodipodi:docname="elrendezes2.svg"
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:svg="http://www.w3.org/2000/svg"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:cc="http://creativecommons.org/ns#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
       >
         <defs id="defs2">
           <marker
-            inkscape:stockid="Arrow1Lend"
-            orient="auto"
-            refY="0.0"
-            refX="0.0"
+            inkscape:isstock="true"
+            style="overflow: visible"
             id="Arrow1Lend"
-            style="overflow: visible"
-            inkscape:isstock="true"
+            refX="0"
+            refY="0"
+            orient="auto"
+            inkscape:stockid="Arrow1Lend"
           >
             <path
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
               id="path1048"
-              d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-              :style="{ stroke: arrowStroke, fill: arrowStroke }"
-              style="
-                fill-rule: evenodd;
-                stroke-width: 1pt;
-                stroke-opacity: 1;
-                fill-opacity: 1;
-              "
-              transform="scale(0.8) rotate(180) translate(12.5,0)"
             />
           </marker>
           <marker
-            inkscape:stockid="Arrow1Lstart"
-            orient="auto"
-            refY="0.0"
-            refX="0.0"
+            inkscape:isstock="true"
+            style="overflow: visible"
             id="Arrow1Lstart"
-            style="overflow: visible"
-            inkscape:isstock="true"
+            refX="0"
+            refY="0"
+            orient="auto"
+            inkscape:stockid="Arrow1Lstart"
           >
             <path
+              transform="matrix(0.8,0,0,0.8,10,0)"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
               id="path1045"
-              d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-              :style="{ stroke: arrowStroke, fill: arrowStroke }"
-              style="
-                fill-rule: evenodd;
-                stroke-width: 1pt;
-                stroke-opacity: 1;
-                fill-opacity: 1;
-              "
-              transform="scale(0.8) translate(12.5,0)"
             />
           </marker>
           <marker
-            inkscape:isstock="true"
-            style="overflow: visible"
+            inkscape:stockid="Arrow1Lend"
+            orient="auto"
+            refY="0"
+            refX="0"
             id="Arrow1Lend-3"
-            refX="0"
-            refY="0"
-            orient="auto"
-            inkscape:stockid="Arrow1Lend"
+            style="overflow: visible"
+            inkscape:isstock="true"
           >
             <path
-              transform="matrix(-0.8,0,0,-0.8,-10,0)"
-              :style="{ stroke: arrowStroke, fill: arrowStroke }"
-              style="
-                fill-opacity: 1;
-                fill-rule: evenodd;
-                stroke-width: 1pt;
-                stroke-opacity: 1;
-              "
-              d="M 0,0 5,-5 -12.5,0 5,5 Z"
               id="path1048-1"
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
             />
           </marker>
           <marker
-            inkscape:isstock="true"
-            style="overflow: visible"
+            inkscape:stockid="Arrow1Lend"
+            orient="auto"
+            refY="0"
+            refX="0"
             id="Arrow1Lend-30"
-            refX="0"
-            refY="0"
-            orient="auto"
-            inkscape:stockid="Arrow1Lend"
+            style="overflow: visible"
+            inkscape:isstock="true"
           >
             <path
-              transform="matrix(-0.8,0,0,-0.8,-10,0)"
-              :style="{ stroke: arrowStroke, fill: arrowStroke }"
-              style="
-                fill-opacity: 1;
-                fill-rule: evenodd;
-                stroke-width: 1pt;
-                stroke-opacity: 1;
-              "
-              d="M 0,0 5,-5 -12.5,0 5,5 Z"
               id="path1048-9"
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
             />
           </marker>
           <marker
-            inkscape:isstock="true"
-            style="overflow: visible"
+            inkscape:stockid="Arrow1Lend"
+            orient="auto"
+            refY="0"
+            refX="0"
             id="Arrow1Lend-6"
-            refX="0"
-            refY="0"
-            orient="auto"
-            inkscape:stockid="Arrow1Lend"
+            style="overflow: visible"
+            inkscape:isstock="true"
           >
             <path
-              transform="matrix(-0.8,0,0,-0.8,-10,0)"
+              id="path1048-7"
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
               :style="{ stroke: arrowStroke, fill: arrowStroke }"
               style="
                 fill-opacity: 1;
@@ -336,14 +342,35 @@ defineExpose({
                 stroke-width: 1pt;
                 stroke-opacity: 1;
               "
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
+            />
+          </marker>
+          <marker
+            inkscape:stockid="Arrow1Lend"
+            orient="auto"
+            refY="0"
+            refX="0"
+            id="Arrow1Lend-2"
+            style="overflow: visible"
+            inkscape:isstock="true"
+          >
+            <path
+              id="path1048-4"
               d="M 0,0 5,-5 -12.5,0 5,5 Z"
-              id="path1048-7"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
             />
           </marker>
           <marker
             inkscape:isstock="true"
             style="overflow: visible"
-            id="Arrow1Lend-2"
+            id="Arrow1Lend-23"
             refX="0"
             refY="0"
             orient="auto"
@@ -359,50 +386,378 @@ defineExpose({
                 stroke-opacity: 1;
               "
               d="M 0,0 5,-5 -12.5,0 5,5 Z"
-              id="path1048-4"
+              id="path1048-75"
+            />
+          </marker>
+          <marker
+            inkscape:isstock="true"
+            style="overflow: visible"
+            id="Arrow1Lend-63"
+            refX="0"
+            refY="0"
+            orient="auto"
+            inkscape:stockid="Arrow1Lend"
+          >
+            <path
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
+              id="path1048-2"
+            />
+          </marker>
+          <marker
+            inkscape:isstock="true"
+            style="overflow: visible"
+            id="Arrow1Lend-8"
+            refX="0"
+            refY="0"
+            orient="auto"
+            inkscape:stockid="Arrow1Lend"
+          >
+            <path
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
+              id="path1048-6"
+            />
+          </marker>
+          <marker
+            inkscape:isstock="true"
+            style="overflow: visible"
+            id="Arrow1Lend-8-2"
+            refX="0"
+            refY="0"
+            orient="auto"
+            inkscape:stockid="Arrow1Lend"
+          >
+            <path
+              transform="matrix(-0.8,0,0,-0.8,-10,0)"
+              :style="{ stroke: arrowStroke, fill: arrowStroke }"
+              style="
+                fill-opacity: 1;
+                fill-rule: evenodd;
+                stroke-width: 1pt;
+                stroke-opacity: 1;
+              "
+              d="M 0,0 5,-5 -12.5,0 5,5 Z"
+              id="path1048-6-6"
             />
           </marker>
         </defs>
-        <g
-          transform="translate(490.8432,150.65241)"
-          id="layer1"
-          inkscape:groupmode="layer"
-          inkscape:label="Réteg 1"
+        <sodipodi:namedview
+          id="base"
+          pagecolor="#ffffff"
+          bordercolor="#666666"
+          borderopacity="1.0"
+          inkscape:pageopacity="0.0"
+          inkscape:pageshadow="2"
+          inkscape:zoom="0.46520016"
+          inkscape:cx="1008.1682"
+          inkscape:cy="712.59648"
+          inkscape:document-units="mm"
+          inkscape:current-layer="layer1"
+          inkscape:document-rotation="0"
+          showgrid="false"
+          fit-margin-top="0"
+          fit-margin-left="0"
+          fit-margin-right="0"
+          fit-margin-bottom="0"
+          inkscape:window-width="1920"
+          inkscape:window-height="1128"
+          inkscape:window-x="0"
+          inkscape:window-y="0"
+          inkscape:window-maximized="1"
+          inkscape:showpageshadow="2"
+          inkscape:pagecheckerboard="0"
+          inkscape:deskcolor="#d1d1d1"
         >
+          <inkscape:page
+            x="0"
+            y="0"
+            width="500"
+            height="321"
+            id="page1"
+            margin="0"
+            bleed="0"
+          />
+        </sodipodi:namedview>
+        <metadata id="metadata5">
+          <rdf:RDF>
+            <cc:Work rdf:about="">
+              <dc:format>image/svg+xml</dc:format>
+              <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+            </cc:Work>
+          </rdf:RDF>
+        </metadata>
+        <g
+          inkscape:label="R├ęteg 1"
+          inkscape:groupmode="layer"
+          id="layer1"
+          transform="translate(490.8432,150.65241)"
+        >
+          <text
+            xml:space="preserve"
+            :style="{ fill: letterStroke }"
+            style="
+              font-style: normal;
+              font-weight: normal;
+              font-size: 84.6667px;
+              line-height: 1.25;
+              font-family: sans-serif;
+              fill-opacity: 1;
+              stroke: none;
+              stroke-width: 0.264583;
+            "
+            x="-101.09566"
+            y="114.52044"
+            id="text1159-2-6"
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="LetterE"
+          >
+            <tspan
+              sodipodi:role="line"
+              id="tspan1157-7-7"
+              x="-101.09566"
+              y="114.52044"
+              style="font-size: 84.6667px; stroke-width: 0.264583"
+            >
+              E
+            </tspan>
+          </text>
+          <text
+            xml:space="preserve"
+            :style="{ fill: letterStroke }"
+            style="
+              font-style: normal;
+              font-weight: normal;
+              font-size: 84.6667px;
+              line-height: 1.25;
+              font-family: sans-serif;
+              fill-opacity: 1;
+              stroke: none;
+              stroke-width: 0.264583;
+            "
+            x="-439.98853"
+            y="114.52044"
+            id="text1159-2"
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="LetterD"
+          >
+            <tspan
+              sodipodi:role="line"
+              id="tspan1157-7"
+              x="-439.98853"
+              y="114.52044"
+              style="font-size: 84.6667px; stroke-width: 0.264583"
+            >
+              D
+            </tspan>
+          </text>
+          <text
+            xml:space="preserve"
+            :style="{ fill: letterStroke }"
+            style="
+              font-style: normal;
+              font-weight: normal;
+              font-size: 84.6667px;
+              line-height: 1.25;
+              font-family: sans-serif;
+              fill-opacity: 1;
+              stroke: none;
+              stroke-width: 0.264583;
+            "
+            x="-104.05204"
+            y="-36.253872"
+            id="text1159-4"
+            inkscape:label="LetterC"
+          >
+            <tspan
+              sodipodi:role="line"
+              id="tspan1157-3"
+              x="-104.05204"
+              y="-36.253872"
+              style="font-size: 84.6667px; stroke-width: 0.264583"
+            >
+              C
+            </tspan>
+          </text>
+          <text
+            xml:space="preserve"
+            :style="{ fill: letterStroke }"
+            style="
+              font-style: normal;
+              font-weight: normal;
+              font-size: 84.6667px;
+              line-height: 1.25;
+              font-family: sans-serif;
+              fill-opacity: 1;
+              stroke: none;
+              stroke-width: 0.264583;
+            "
+            x="-268.5936"
+            y="-35.219528"
+            id="text1159-6"
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="LetterB"
+          >
+            <tspan
+              sodipodi:role="line"
+              id="tspan1157-1"
+              x="-268.5936"
+              y="-35.219528"
+              style="font-size: 84.6667px; stroke-width: 0.264583"
+            >
+              B
+            </tspan>
+          </text>
+          <text
+            xml:space="preserve"
+            :style="{ fill: letterStroke }"
+            style="
+              font-style: normal;
+              font-weight: normal;
+              font-size: 84.6667px;
+              line-height: 1.25;
+              font-family: sans-serif;
+              fill-opacity: 1;
+              stroke: none;
+              stroke-width: 0.264583;
+            "
+            x="-437.93927"
+            y="-35.219528"
+            id="text1159"
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="LetterA"
+          >
+            <tspan
+              sodipodi:role="line"
+              id="tspan1157"
+              x="-437.93927"
+              y="-35.219528"
+              style="font-size: 84.6667px; stroke-width: 0.264583"
+            >
+              A
+            </tspan>
+          </text>
+          <path
+            id="path1043-2-3"
+            d="m -12.494766,46.268355 -8.25369,14.29582"
+            :style="{ stroke: arrowStroke }"
+            style="
+              fill: none;
+              stroke-width: 0.653275;
+              stroke-linecap: butt;
+              stroke-linejoin: miter;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+              marker-end: url(#Arrow1Lend-8-2);
+            "
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="ArrowE"
+          />
+          <path
+            id="path1043-2"
+            d="m -347.68344,46.26837 -8.25369,14.295811"
+            :style="{ stroke: arrowStroke }"
+            style="
+              fill: none;
+              stroke-width: 0.653275;
+              stroke-linecap: butt;
+              stroke-linejoin: miter;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+              marker-end: url(#Arrow1Lend-8);
+            "
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="ArrowD"
+          />
+          <path
+            id="path1043-07"
+            d="m -10.734657,-29.461851 h -16.50738"
+            :style="{ stroke: arrowStroke }"
+            style="
+              fill: none;
+              stroke-width: 0.653275;
+              stroke-linecap: butt;
+              stroke-linejoin: miter;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+              marker-end: url(#Arrow1Lend-63);
+            "
+            inkscape:label="ArrowC"
+            transform="translate(-4.1666675e-7)"
+          />
+          <path
+            id="path1043-0"
+            d="m -178.59284,-29.461856 h -16.50738"
+            :style="{ stroke: arrowStroke }"
+            style="
+              fill: none;
+              stroke-width: 0.653275;
+              stroke-linecap: butt;
+              stroke-linejoin: miter;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+              marker-end: url(#Arrow1Lend-23);
+            "
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="ArrowB"
+          />
+          <path
+            id="path1043"
+            d="m -346.44684,-29.461868 h -16.50738"
+            :style="{ stroke: arrowStroke }"
+            style="
+              fill: none;
+              stroke-width: 0.653275;
+              stroke-linecap: butt;
+              stroke-linejoin: miter;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+              marker-end: url(#Arrow1Lend);
+            "
+            transform="translate(-4.1666675e-7)"
+            inkscape:label="ArrowA"
+          />
           <rect
-            inkscape:label="A-04"
-            y="2.3208001"
-            x="-446.73767"
-            height="15.999416"
-            width="22.600254"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
             id="rect864"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
+            width="22.600254"
+            height="15.999416"
+            x="-431.01822"
+            y="-24.503544"
+            inkscape:label="A-04"
           />
           <rect
-            inkscape:label="A-03"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
+            y="-24.503544"
+            x="-408.41797"
+            height="15.999416"
+            width="22.600254"
             id="rect864-2"
-            width="22.600254"
-            height="15.999416"
-            x="-424.13742"
-            y="2.3208001"
-          />
-          <rect
-            inkscape:label="A-01"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -411,14 +766,14 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
+            inkscape:label="A-03"
+          />
+          <rect
+            y="-24.503544"
+            x="-363.21747"
+            height="15.999416"
+            width="22.600254"
             id="rect864-9"
-            width="22.600254"
-            height="15.999416"
-            x="-378.93692"
-            y="2.3208001"
-          />
-          <rect
-            inkscape:label="A-02"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -427,15 +782,261 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-3"
-            width="22.600254"
-            height="15.999416"
-            x="-401.53717"
-            y="2.3208001"
+            inkscape:label="A-01"
           />
           <rect
+            y="-24.503544"
+            x="-385.81772"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-3"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            inkscape:label="A-02"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9"
+            width="22.58066"
+            height="16.013344"
+            x="194.27634"
+            y="424.6423"
+            inkscape:label="A-07"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-6"
+            width="22.58066"
+            height="16.013344"
+            x="171.69568"
+            y="424.6423"
             inkscape:label="A-08"
-            transform="matrix(0.30865113,0.95117532,-0.95043925,0.31091033,0,0)"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-5"
+            width="22.58066"
+            height="16.013344"
+            x="149.11502"
+            y="424.6423"
+            inkscape:label="A-09"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-56"
+            width="22.58066"
+            height="16.013344"
+            x="126.53437"
+            y="424.6423"
+            inkscape:label="A-10"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-91"
+            width="22.58066"
+            height="16.013344"
+            x="103.95371"
+            y="424.6423"
+            inkscape:label="A-11"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70"
+            width="22.58066"
+            height="16.013344"
+            x="81.373039"
+            y="424.6423"
+            inkscape:label="A-12"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3"
+            width="22.58066"
+            height="16.013344"
+            x="304.48383"
+            y="-282.79227"
+            inkscape:label="A-13"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-0"
+            width="22.58066"
+            height="16.013344"
+            x="281.90317"
+            y="-282.79227"
+            inkscape:label="A-14"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-2"
+            width="22.58066"
+            height="16.013344"
+            x="259.32251"
+            y="-282.79227"
+            inkscape:label="A-15"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-1"
+            width="22.58066"
+            height="16.013344"
+            x="236.74187"
+            y="-282.79227"
+            inkscape:label="A-16"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-7"
+            width="22.58066"
+            height="16.013344"
+            x="214.16121"
+            y="-282.79227"
+            inkscape:label="A-17"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-20"
+            width="22.58066"
+            height="16.013344"
+            x="191.58055"
+            y="-282.79227"
+            inkscape:label="A-18"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-9-7"
+            width="22.58066"
+            height="16.013344"
+            x="-453.59888"
+            y="-24.517471"
+            inkscape:label="A-05"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-3-4"
+            width="22.58066"
+            height="16.013344"
+            x="-476.17953"
+            y="-24.517471"
+            inkscape:label="A-06"
+          />
+          <rect
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -445,36 +1046,99 @@ defineExpose({
               stroke-opacity: 1;
             "
             id="rect864-8"
+            width="22.600254"
+            height="15.999416"
+            x="385.8569"
+            y="-44.198746"
+            inkscape:label="D-16"
+            transform="scale(-1)"
+          />
+          <rect
+            y="-44.198746"
+            x="408.45715"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-2-4"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            inkscape:label="D-15"
+            transform="scale(-1)"
+          />
+          <rect
+            y="-44.198746"
+            x="453.65765"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-9-3"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            inkscape:label="D-13"
+            transform="scale(-1)"
+          />
+          <rect
+            y="-44.198746"
+            x="431.0574"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-3-1"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            inkscape:label="D-14"
+            transform="scale(-1)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-49"
             width="22.58066"
             height="16.013344"
-            x="-227.12701"
-            y="425.60651"
+            x="-231.21774"
+            y="-272.94467"
+            inkscape:label="D-01"
+            transform="rotate(-60)"
           />
           <rect
-            inkscape:label="A-07"
-            transform="matrix(0.30865113,0.95117532,-0.95043925,0.31091033,0,0)"
-            y="425.60651"
-            x="-204.54633"
-            height="16.013344"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-6-2"
             width="22.58066"
-            id="rect864-2-9"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-          />
-          <rect
-            inkscape:label="A-05"
-            transform="matrix(0.30865113,0.95117532,-0.95043925,0.31091033,0,0)"
-            y="425.60651"
-            x="-159.38501"
             height="16.013344"
-            width="22.58066"
-            id="rect864-9-7"
+            x="-253.79839"
+            y="-272.94467"
+            inkscape:label="D-02"
+            transform="rotate(-60)"
+          />
+          <rect
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -483,27 +1147,32 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-          />
-          <rect
-            inkscape:label="A-06"
-            transform="matrix(0.30865113,0.95117532,-0.95043925,0.31091033,0,0)"
-            y="425.60651"
-            x="-181.9657"
+            id="rect864-2-9-5-0"
+            width="22.58066"
             height="16.013344"
+            x="-276.37906"
+            y="-272.94467"
+            inkscape:label="D-03"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-56-6"
             width="22.58066"
-            id="rect864-3-4"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
+            height="16.013344"
+            x="-298.95972"
+            y="-272.94467"
+            inkscape:label="D-04"
+            transform="rotate(-60)"
           />
           <rect
-            inkscape:label="A-09"
-            transform="rotate(-35.960479)"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -512,20 +1181,190 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-6"
+            id="rect864-2-9-91-8"
+            width="22.58066"
+            height="16.013344"
+            x="-321.54034"
+            y="-272.94467"
+            inkscape:label="D-05"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-92"
+            width="22.58066"
+            height="16.013344"
+            x="-344.12103"
+            y="-272.94467"
+            inkscape:label="D-06"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-6"
+            width="22.58066"
+            height="16.013344"
+            x="-86.897186"
+            y="434.4899"
+            inkscape:label="D-07"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-0-6"
+            width="22.58066"
+            height="16.013344"
+            x="-109.47785"
+            y="434.4899"
+            inkscape:label="D-08"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-2-49"
+            width="22.58066"
+            height="16.013344"
+            x="-132.0585"
+            y="434.4899"
+            inkscape:label="D-09"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-1-50"
+            width="22.58066"
+            height="16.013344"
+            x="-154.63916"
+            y="434.4899"
+            inkscape:label="D-10"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-7-48"
+            width="22.58066"
+            height="16.013344"
+            x="-177.21982"
+            y="434.4899"
+            inkscape:label="D-11"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-20-7"
+            width="22.58066"
+            height="16.013344"
+            x="-199.80048"
+            y="434.4899"
+            inkscape:label="D-12"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-9-7-1"
+            width="22.58066"
+            height="16.013344"
+            x="363.27625"
+            y="-44.212669"
+            inkscape:label="D-17"
+            transform="scale(-1)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-3-4-7"
+            width="22.58066"
+            height="16.013344"
+            x="340.69559"
+            y="-44.212669"
+            inkscape:label="D-18"
+            transform="scale(-1)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-8-0"
             width="22.600254"
             height="15.999416"
-            x="-335.07394"
-            y="-362.40256"
+            x="50.668217"
+            y="-44.198734"
+            inkscape:label="E-16"
+            transform="scale(-1)"
           />
           <rect
-            inkscape:label="A-10"
-            transform="rotate(-35.960479)"
-            y="-362.40256"
-            x="-312.47366"
+            y="-44.198734"
+            x="73.268463"
             height="15.999416"
             width="22.600254"
-            id="rect864-2-3"
+            id="rect864-2-4-6"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -534,15 +1373,15 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
+            inkscape:label="E-15"
+            transform="scale(-1)"
           />
           <rect
-            inkscape:label="A-12"
-            transform="rotate(-35.960479)"
-            y="-362.40256"
-            x="-267.27316"
+            y="-44.198734"
+            x="118.46897"
             height="15.999416"
             width="22.600254"
-            id="rect864-9-8"
+            id="rect864-9-3-1"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -551,15 +1390,15 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
+            inkscape:label="E-13"
+            transform="scale(-1)"
           />
           <rect
-            inkscape:label="A-11"
-            transform="rotate(-35.960479)"
-            y="-362.40256"
-            x="-289.87344"
+            y="-44.198734"
+            x="95.868713"
             height="15.999416"
             width="22.600254"
-            id="rect864-3-0"
+            id="rect864-3-1-5"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -568,10 +1407,10 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
+            inkscape:label="E-14"
+            transform="scale(-1)"
           />
           <rect
-            inkscape:label="A-13"
-            transform="rotate(36.117975)"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -580,20 +1419,15 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-4"
-            width="22.600254"
-            height="15.999416"
-            x="-404.90292"
-            y="110.09412"
+            id="rect864-2-9-49-9"
+            width="22.58066"
+            height="16.013344"
+            x="-63.623386"
+            y="17.337234"
+            inkscape:label="E-01"
+            transform="rotate(-60)"
           />
           <rect
-            inkscape:label="A-14"
-            transform="rotate(36.117975)"
-            y="110.09412"
-            x="-382.30264"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-2-2"
             :style="{ stroke: seatStroke }"
             style="
               fill: none;
@@ -602,12 +1436,253 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
+            id="rect864-2-9-6-2-4"
+            width="22.58066"
+            height="16.013344"
+            x="-86.204056"
+            y="17.337234"
+            inkscape:label="E-02"
+            transform="rotate(-60)"
           />
           <rect
-            inkscape:label="A-16"
-            transform="rotate(36.117975)"
-            y="110.09412"
-            x="-337.10214"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-5-0-9"
+            width="22.58066"
+            height="16.013344"
+            x="-108.78471"
+            y="17.337234"
+            inkscape:label="E-03"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-56-6-0"
+            width="22.58066"
+            height="16.013344"
+            x="-131.36537"
+            y="17.337234"
+            inkscape:label="E-04"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-91-8-9"
+            width="22.58066"
+            height="16.013344"
+            x="-153.946"
+            y="17.337234"
+            inkscape:label="E-05"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-92-1"
+            width="22.58066"
+            height="16.013344"
+            x="-176.52669"
+            y="17.337234"
+            inkscape:label="E-06"
+            transform="rotate(-60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-6-7"
+            width="22.58066"
+            height="16.013344"
+            x="80.697166"
+            y="144.20799"
+            inkscape:label="E-07"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-0-6-7"
+            width="22.58066"
+            height="16.013344"
+            x="58.116489"
+            y="144.20799"
+            inkscape:label="E-08"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-2-49-1"
+            width="22.58066"
+            height="16.013344"
+            x="35.535835"
+            y="144.20799"
+            inkscape:label="E-09"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-1-50-1"
+            width="22.58066"
+            height="16.013344"
+            x="12.955178"
+            y="144.20799"
+            inkscape:label="E-10"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-7-48-5"
+            width="22.58066"
+            height="16.013344"
+            x="-9.6254797"
+            y="144.20799"
+            inkscape:label="E-11"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-20-7-9"
+            width="22.58066"
+            height="16.013344"
+            x="-32.206139"
+            y="144.20799"
+            inkscape:label="E-12"
+            transform="rotate(60)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-9-7-1-7"
+            width="22.58066"
+            height="16.013344"
+            x="28.087559"
+            y="-44.212666"
+            inkscape:label="E-17"
+            transform="scale(-1)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-3-4-7-7"
+            width="22.58066"
+            height="16.013344"
+            x="5.5069079"
+            y="-44.212666"
+            inkscape:label="E-18"
+            transform="scale(-1)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-22"
+            width="22.600254"
+            height="15.999416"
+            x="-263.16397"
+            y="-24.503531"
+            inkscape:label="B-04"
+          />
+          <rect
+            y="-24.503531"
+            x="-240.56352"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-2-8"
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            inkscape:label="B-03"
+          />
+          <rect
+            y="-24.503531"
+            x="-195.36302"
             height="15.999416"
             width="22.600254"
             id="rect864-9-9"
@@ -619,414 +1694,11 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-          />
-          <rect
-            inkscape:label="A-15"
-            transform="rotate(36.117975)"
-            y="110.09412"
-            x="-359.70242"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-3-8"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-          />
-          <rect
-            inkscape:label="A-17"
-            transform="rotate(-71.853521)"
-            y="-337.9938"
-            x="-45.406685"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-9-6"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-          />
-          <rect
-            inkscape:label="A-18"
-            transform="rotate(-71.853521)"
-            y="-337.9938"
-            x="-68.006966"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-3-03"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-          />
-          <rect
-            y="2.217679"
-            x="-193.93379"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-9-74"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="B-17"
-          />
-          <rect
-            y="2.217679"
-            x="-216.53407"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-3-2"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="B-18"
-          />
-          <rect
-            y="249.60381"
-            x="-169.70546"
-            height="16.013344"
-            width="22.58066"
-            id="rect864-8-5"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="matrix(0.30865114,0.95117531,-0.95043925,0.31091034,0,0)"
-            inkscape:label="B-04"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-9-9"
-            width="22.58066"
-            height="16.013344"
-            x="-147.12477"
-            y="249.60381"
-            transform="matrix(0.30865114,0.95117531,-0.95043925,0.31091034,0,0)"
-            inkscape:label="B-03"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-7-9"
-            width="22.58066"
-            height="16.013344"
-            x="-101.96346"
-            y="249.60381"
-            transform="matrix(0.30865114,0.95117531,-0.95043925,0.31091034,0,0)"
             inkscape:label="B-01"
           />
           <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-4-1"
-            width="22.58066"
-            height="16.013344"
-            x="-124.54414"
-            y="249.60381"
-            transform="matrix(0.30865114,0.95117531,-0.95043925,0.31091034,0,0)"
-            inkscape:label="B-02"
-          />
-          <rect
-            y="-253.8472"
-            x="-185.26776"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-6-2"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(-35.960478)"
-            inkscape:label="B-05"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-3-6"
-            width="22.600254"
-            height="15.999416"
-            x="-162.66748"
-            y="-253.8472"
-            transform="rotate(-35.960478)"
-            inkscape:label="B-06"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-8-6"
-            width="22.600254"
-            height="15.999416"
-            x="-117.46698"
-            y="-253.8472"
-            transform="rotate(-35.960478)"
-            inkscape:label="B-08"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-0-0"
-            width="22.600254"
-            height="15.999416"
-            x="-140.06726"
-            y="-253.8472"
-            transform="rotate(-35.960478)"
-            inkscape:label="B-07"
-          />
-          <rect
-            y="0.96075457"
-            x="-255.51729"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-4-8"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(36.117974)"
-            inkscape:label="B-09"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-2-9"
-            width="22.600254"
-            height="15.999416"
-            x="-232.91701"
-            y="0.96075457"
-            transform="rotate(36.117974)"
-            inkscape:label="B-10"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-9-3"
-            width="22.600254"
-            height="15.999416"
-            x="-187.71645"
-            y="0.96075457"
-            transform="rotate(36.117974)"
-            inkscape:label="B-12"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-8-8"
-            width="22.600254"
-            height="15.999416"
-            x="-210.31679"
-            y="0.96075457"
-            transform="rotate(36.117974)"
-            inkscape:label="B-11"
-          />
-          <rect
-            y="-162.22421"
-            x="-55.490753"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-20-5"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(-71.853521)"
-            inkscape:label="B-16"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-5-7"
-            width="22.600254"
-            height="15.999416"
-            x="-32.890465"
-            y="-162.22421"
-            transform="rotate(-71.853521)"
-            inkscape:label="B-15"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-6-0"
-            width="22.600254"
-            height="15.999416"
-            x="12.310036"
-            y="-162.22421"
-            transform="rotate(-71.853521)"
-            inkscape:label="B-13"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-03-4"
-            width="22.600254"
-            height="15.999416"
-            x="-10.290245"
-            y="-162.22421"
-            transform="rotate(-71.853521)"
-            inkscape:label="B-14"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-00"
-            width="22.600254"
-            height="15.999416"
-            x="-80.5784"
-            y="2.3208048"
-            inkscape:label="C-18"
-          />
-          <rect
-            y="2.3208048"
-            x="-57.978134"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-2-92"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="C-17"
-          />
-          <rect
-            y="2.3208048"
-            x="-12.777635"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-9-99"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="C-15"
-          />
-          <rect
-            sodipodi:insensitive="true"
-            y="2.3208048"
-            x="-35.377914"
+            y="-24.503531"
+            x="-217.96327"
             height="15.999416"
             width="22.600254"
             id="rect864-3-7"
@@ -1038,636 +1710,7 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            inkscape:label="C-16"
-          />
-          <rect
-            y="77.323875"
-            x="-113.28397"
-            height="16.013344"
-            width="22.58066"
-            id="rect864-8-51"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="matrix(0.30865114,0.95117531,-0.95043925,0.31091034,0,0)"
-            inkscape:label="C-02"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-9-7"
-            width="22.58066"
-            height="16.013344"
-            x="-90.703278"
-            y="77.323875"
-            transform="matrix(0.30865114,0.95117531,-0.95043925,0.31091034,0,0)"
-            inkscape:label="C-01"
-          />
-          <rect
-            y="-147.38393"
-            x="-38.696495"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-6-0"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(-35.960478)"
-            inkscape:label="C-03"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-3-2"
-            width="22.600254"
-            height="15.999416"
-            x="-16.096214"
-            y="-147.38393"
-            transform="rotate(-35.960478)"
-            inkscape:label="C-04"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-8-5"
-            width="22.600254"
-            height="15.999416"
-            x="29.104286"
-            y="-147.38393"
-            transform="rotate(-35.960478)"
-            inkscape:label="C-06"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-0-3"
-            width="22.600254"
-            height="15.999416"
-            x="6.5040059"
-            y="-147.38393"
-            transform="rotate(-35.960478)"
-            inkscape:label="C-05"
-          />
-          <rect
-            y="-105.7384"
-            x="-109.11765"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-4-6"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(36.117974)"
-            inkscape:label="C-07"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-2-8"
-            width="22.600254"
-            height="15.999416"
-            x="-86.517403"
-            y="-105.7384"
-            transform="rotate(36.117974)"
-            inkscape:label="C-08"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-9-8"
-            width="22.600254"
-            height="15.999416"
-            x="-41.316807"
-            y="-105.7384"
-            transform="rotate(36.117974)"
-            inkscape:label="C-10"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-8-3"
-            width="22.600254"
-            height="15.999416"
-            x="-63.917149"
-            y="-105.7384"
-            transform="rotate(36.117974)"
-            inkscape:label="C-09"
-          />
-          <rect
-            y="9.9539671"
-            x="0.8318724"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-20-6"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(-71.853521)"
-            inkscape:label="C-14"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-5-5"
-            width="22.600254"
-            height="15.999416"
-            x="23.432161"
-            y="9.9539671"
-            transform="rotate(-71.853521)"
-            inkscape:label="C-13"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-6-5"
-            width="22.600254"
-            height="15.999416"
-            x="68.632652"
-            y="9.9539671"
-            transform="rotate(-71.853521)"
-            inkscape:label="C-11"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-03-1"
-            width="22.600254"
-            height="15.999416"
-            x="46.032372"
-            y="9.9539671"
-            transform="rotate(-71.853521)"
-            inkscape:label="C-12"
-          />
-          <rect
-            transform="scale(-1)"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-7"
-            width="22.600254"
-            height="15.999416"
-            x="356.45303"
-            y="-46.383945"
-            inkscape:label="D-18"
-          />
-          <rect
-            transform="scale(-1)"
-            y="-46.383945"
-            x="379.05331"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-2-97"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="D-17"
-          />
-          <rect
-            transform="scale(-1)"
-            y="-46.383945"
-            x="424.25381"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-9-2"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="D-15"
-          />
-          <rect
-            transform="scale(-1)"
-            y="-46.383945"
-            x="401.65353"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-3-6"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="D-16"
-          />
-          <rect
-            y="-353.40363"
-            x="-23.697018"
-            height="16.013344"
-            width="22.58066"
-            id="rect864-8-3"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="matrix(-0.30865114,-0.95117531,0.95043925,-0.31091034,0,0)"
-            inkscape:label="D-02"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-9-72"
-            width="22.58066"
-            height="16.013344"
-            x="-1.1163285"
-            y="-353.40363"
-            transform="matrix(-0.30865114,-0.95117531,0.95043925,-0.31091034,0,0)"
-            inkscape:label="D-01"
-          />
-          <rect
-            y="69.830078"
-            x="343.64722"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-6-6"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(144.03952)"
-            inkscape:label="D-03"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-3-65"
-            width="22.600254"
-            height="15.999416"
-            x="366.2475"
-            y="69.830078"
-            transform="rotate(144.03952)"
-            inkscape:label="D-04"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-8-7"
-            width="22.600254"
-            height="15.999416"
-            x="411.448"
-            y="69.830078"
-            transform="rotate(144.03952)"
-            inkscape:label="D-06"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-0-5"
-            width="22.600254"
-            height="15.999416"
-            x="388.84772"
-            y="69.830078"
-            transform="rotate(144.03952)"
-            inkscape:label="D-05"
-          />
-          <rect
-            y="-402.69043"
-            x="215.20955"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-4-2"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(-143.88203)"
-            inkscape:label="D-07"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-2-3"
-            width="22.600254"
-            height="15.999416"
-            x="237.80983"
-            y="-402.69043"
-            transform="rotate(-143.88203)"
-            inkscape:label="D-08"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-9-1"
-            width="22.600254"
-            height="15.999416"
-            x="283.01038"
-            y="-402.69043"
-            transform="rotate(-143.88203)"
-            inkscape:label="D-10"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-8-1"
-            width="22.600254"
-            height="15.999416"
-            x="260.41003"
-            y="-402.69043"
-            transform="rotate(-143.88203)"
-            inkscape:label="D-09"
-          />
-          <rect
-            y="410.07999"
-            x="183.22652"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-20-9"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(108.14648)"
-            inkscape:label="D-14"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-2-5-58"
-            width="22.600254"
-            height="15.999416"
-            x="205.8268"
-            y="410.07999"
-            transform="rotate(108.14648)"
-            inkscape:label="D-13"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-9-6-8"
-            width="22.600254"
-            height="15.999416"
-            x="251.0273"
-            y="410.07999"
-            transform="rotate(108.14648)"
-            inkscape:label="D-11"
-          />
-          <rect
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-3-03-0"
-            width="22.600254"
-            height="15.999416"
-            x="228.42702"
-            y="410.07999"
-            transform="rotate(108.14648)"
-            inkscape:label="D-12"
-          />
-          <rect
-            transform="scale(-1)"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            id="rect864-1"
-            width="22.600254"
-            height="15.999416"
-            x="-10.827894"
-            y="-46.280773"
-            inkscape:label="E-04"
-          />
-          <rect
-            transform="scale(-1)"
-            y="-46.280773"
-            x="11.772387"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-2-10"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="E-03"
-          />
-          <rect
-            transform="scale(-1)"
-            y="-46.280773"
-            x="56.972885"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-9-93"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="E-01"
-          />
-          <rect
-            transform="scale(-1)"
-            y="-46.280773"
-            x="34.372604"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-3-64"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            inkscape:label="E-02"
-          />
-          <rect
-            y="-4.0222621"
-            x="-137.79073"
-            height="16.013344"
-            width="22.58066"
-            id="rect864-8-53"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="matrix(-0.30865114,-0.95117531,0.95043925,-0.31091034,0,0)"
-            inkscape:label="E-08"
+            inkscape:label="B-02"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1681,10 +1724,10 @@ defineExpose({
             id="rect864-2-9-3"
             width="22.58066"
             height="16.013344"
-            x="-115.21004"
-            y="-4.0222621"
-            transform="matrix(-0.30865114,-0.95117531,0.95043925,-0.31091034,0,0)"
-            inkscape:label="E-07"
+            x="110.34912"
+            y="279.27679"
+            inkscape:label="B-07"
+            transform="rotate(120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1695,13 +1738,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-9-7-18"
+            id="rect864-2-9-6-6"
             width="22.58066"
             height="16.013344"
-            x="-70.048721"
-            y="-4.0222621"
-            transform="matrix(-0.30865114,-0.95117531,0.95043925,-0.31091034,0,0)"
-            inkscape:label="E-05"
+            x="87.768471"
+            y="279.27679"
+            inkscape:label="B-08"
+            transform="rotate(120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1712,30 +1755,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-3-4-2"
+            id="rect864-2-9-5-1"
             width="22.58066"
             height="16.013344"
-            x="-92.62941"
-            y="-4.0222621"
-            transform="matrix(-0.30865114,-0.95117531,0.95043925,-0.31091034,0,0)"
-            inkscape:label="E-06"
-          />
-          <rect
-            y="-145.76375"
-            x="46.301292"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-6-60"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(144.03952)"
-            inkscape:label="E-09"
+            x="65.18795"
+            y="279.27679"
+            inkscape:label="B-09"
+            transform="rotate(120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1746,13 +1772,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-2-3-25"
-            width="22.600254"
-            height="15.999416"
-            x="68.901573"
-            y="-145.76375"
-            transform="rotate(144.03952)"
-            inkscape:label="E-10"
+            id="rect864-2-9-56-2"
+            width="22.58066"
+            height="16.013344"
+            x="42.607319"
+            y="279.27679"
+            inkscape:label="B-10"
+            transform="rotate(120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1763,13 +1789,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-9-8-4"
-            width="22.600254"
-            height="15.999416"
-            x="114.10204"
-            y="-145.76375"
-            transform="rotate(144.03952)"
-            inkscape:label="E-12"
+            id="rect864-2-9-91-9"
+            width="22.58066"
+            height="16.013344"
+            x="20.026665"
+            y="279.27679"
+            inkscape:label="B-11"
+            transform="rotate(120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1780,30 +1806,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-3-0-8"
-            width="22.600254"
-            height="15.999416"
-            x="91.501793"
-            y="-145.76375"
-            transform="rotate(144.03952)"
-            inkscape:label="E-11"
-          />
-          <rect
-            y="-186.11342"
-            x="-81.421066"
-            height="15.999416"
-            width="22.600254"
-            id="rect864-4-4"
-            :style="{ stroke: seatStroke }"
-            style="
-              fill: none;
-              stroke-width: 1.165;
-              stroke-miterlimit: 4;
-              stroke-dasharray: none;
-              stroke-opacity: 1;
-            "
-            transform="rotate(-143.88203)"
-            inkscape:label="E-13"
+            id="rect864-2-9-70-31"
+            width="22.58066"
+            height="16.013344"
+            x="-2.5540171"
+            y="279.27679"
+            inkscape:label="B-12"
+            transform="rotate(120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1814,13 +1823,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-2-2-7"
-            width="22.600254"
-            height="15.999416"
-            x="-58.820755"
-            y="-186.11342"
-            transform="rotate(-143.88203)"
-            inkscape:label="E-14"
+            id="rect864-2-9-70-3-9"
+            width="22.58066"
+            height="16.013344"
+            x="220.55688"
+            y="-137.42628"
+            inkscape:label="B-13"
+            transform="rotate(-120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1831,13 +1840,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-9-9-7"
-            width="22.600254"
-            height="15.999416"
-            x="-13.620192"
-            y="-186.11342"
-            transform="rotate(-143.88203)"
-            inkscape:label="E-16"
+            id="rect864-2-9-70-3-0-4"
+            width="22.58066"
+            height="16.013344"
+            x="197.97623"
+            y="-137.42628"
+            inkscape:label="B-14"
+            transform="rotate(-120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1848,13 +1857,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-3-8-6"
-            width="22.600254"
-            height="15.999416"
-            x="-36.220535"
-            y="-186.11342"
-            transform="rotate(-143.88203)"
-            inkscape:label="E-15"
+            id="rect864-2-9-70-3-2-7"
+            width="22.58066"
+            height="16.013344"
+            x="175.39557"
+            y="-137.42628"
+            inkscape:label="B-15"
+            transform="rotate(-120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1865,13 +1874,13 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-9-6-58"
-            width="22.600254"
-            height="15.999416"
-            x="136.54057"
-            y="61.098476"
-            transform="rotate(108.14648)"
-            inkscape:label="E-17"
+            id="rect864-2-9-70-3-1-8"
+            width="22.58066"
+            height="16.013344"
+            x="152.81494"
+            y="-137.42628"
+            inkscape:label="B-16"
+            transform="rotate(-120)"
           />
           <rect
             :style="{ stroke: seatStroke }"
@@ -1882,223 +1891,362 @@ defineExpose({
               stroke-dasharray: none;
               stroke-opacity: 1;
             "
-            id="rect864-3-03-16"
+            id="rect864-2-9-70-3-7-4"
+            width="22.58066"
+            height="16.013344"
+            x="130.23405"
+            y="-137.42628"
+            inkscape:label="B-17"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-20-5"
+            width="22.58066"
+            height="16.013344"
+            x="107.65333"
+            y="-137.42628"
+            inkscape:label="B-18"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-9-7-0"
+            width="22.58066"
+            height="16.013344"
+            x="-285.74509"
+            y="-24.517458"
+            inkscape:label="B-05"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-3-4-3"
+            width="22.58066"
+            height="16.013344"
+            x="-308.32574"
+            y="-24.517458"
+            inkscape:label="B-06"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-6"
             width="22.600254"
             height="15.999416"
-            x="113.94029"
-            y="61.098476"
-            transform="rotate(108.14648)"
-            inkscape:label="E-18"
+            x="-95.306061"
+            y="-24.503527"
+            inkscape:label="C-04"
           />
-          <text
-            id="text1159"
-            y="-29.876978"
-            x="-437.01138"
-            :style="{ fill: letterStroke }"
-            style="
-              font-style: normal;
-              font-weight: normal;
-              font-size: 50.8px;
-              line-height: 1.25;
-              font-family: sans-serif;
-              fill-opacity: 1;
-              stroke: none;
-              stroke-width: 0.264583;
-            "
-            xml:space="preserve"
-          >
-            <tspan
-              style="font-size: 101.6px; stroke-width: 0.264583"
-              y="-29.876978"
-              x="-437.01138"
-              id="tspan1157"
-              sodipodi:role="line"
-            >
-              A
-            </tspan>
-          </text>
-          <text
-            xml:space="preserve"
-            :style="{ fill: letterStroke }"
-            style="
-              font-style: normal;
-              font-weight: normal;
-              font-size: 50.8px;
-              line-height: 1.25;
-              font-family: sans-serif;
-              fill-opacity: 1;
-              stroke: none;
-              stroke-width: 0.264583;
-            "
-            x="-250.43875"
-            y="-25.015135"
-            id="text1159-5"
-          >
-            <tspan
-              sodipodi:role="line"
-              id="tspan1157-5"
-              x="-250.43875"
-              y="-25.015135"
-              style="font-size: 101.6px; stroke-width: 0.264583"
-            >
-              B
-            </tspan>
-          </text>
-          <text
-            xml:space="preserve"
-            :style="{ fill: letterStroke }"
-            style="
-              font-style: normal;
-              font-weight: normal;
-              font-size: 50.8px;
-              line-height: 1.25;
-              font-family: sans-serif;
-              fill-opacity: 1;
-              stroke: none;
-              stroke-width: 0.264583;
-            "
-            x="-72.437256"
-            y="-23.946058"
-            id="text1159-7"
-          >
-            <tspan
-              sodipodi:role="line"
-              id="tspan1157-9"
-              x="-72.437256"
-              y="-23.946058"
-              style="font-size: 101.6px; stroke-width: 0.264583"
-            >
-              C
-            </tspan>
-          </text>
-          <text
-            xml:space="preserve"
-            :style="{ fill: letterStroke }"
-            style="
-              font-style: normal;
-              font-weight: normal;
-              font-size: 50.8px;
-              line-height: 1.25;
-              font-family: sans-serif;
-              fill-opacity: 1;
-              stroke: none;
-              stroke-width: 0.264583;
-            "
-            x="-440.2001"
-            y="143.89922"
-            id="text1159-2"
-          >
-            <tspan
-              sodipodi:role="line"
-              id="tspan1157-56"
-              x="-440.2001"
-              y="143.89922"
-              style="font-size: 101.6px; stroke-width: 0.264583"
-            >
-              D
-            </tspan>
-          </text>
-          <text
-            xml:space="preserve"
-            :style="{ fill: letterStroke }"
-            style="
-              font-style: normal;
-              font-weight: normal;
-              font-size: 50.8px;
-              line-height: 1.25;
-              font-family: sans-serif;
-              fill-opacity: 1;
-              stroke: none;
-              stroke-width: 0.264583;
-            "
-            x="-68.590332"
-            y="142.62383"
-            id="text1159-9"
-          >
-            <tspan
-              sodipodi:role="line"
-              id="tspan1157-6"
-              x="-68.590332"
-              y="142.62383"
-              style="font-size: 101.6px; stroke-width: 0.264583"
-            >
-              E
-            </tspan>
-          </text>
-          <path
-            :style="{ stroke: arrowStroke }"
+          <rect
+            y="-24.503527"
+            x="-72.705811"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-2-1"
+            :style="{ stroke: seatStroke }"
             style="
               fill: none;
-              stroke-width: 0.665;
-              stroke-linecap: butt;
-              stroke-linejoin: miter;
+              stroke-width: 1.165;
               stroke-miterlimit: 4;
               stroke-dasharray: none;
               stroke-opacity: 1;
-              marker-end: url(#Arrow1Lend);
             "
-            d="m -358.54479,-5.7923277 h -17.10524"
-            id="path1043"
+            inkscape:label="C-03"
           />
-          <path
-            id="path1043-1"
-            d="m -254.15633,-2.1870427 -6.79525,-15.6975733"
-            :style="{ stroke: arrowStroke }"
+          <rect
+            y="-24.503527"
+            x="-27.505268"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-9-5"
+            :style="{ stroke: seatStroke }"
             style="
               fill: none;
-              stroke-width: 0.665001;
-              stroke-linecap: butt;
-              stroke-linejoin: miter;
+              stroke-width: 1.165;
               stroke-miterlimit: 4;
               stroke-dasharray: none;
               stroke-opacity: 1;
-              marker-end: url(#Arrow1Lend-3);
             "
+            inkscape:label="C-01"
           />
-          <path
-            id="path1043-3"
-            d="m -89.312956,-44.732715 -5.95904,-16.033682"
-            :style="{ stroke: arrowStroke }"
+          <rect
+            y="-24.503527"
+            x="-50.105522"
+            height="15.999416"
+            width="22.600254"
+            id="rect864-3-5"
+            :style="{ stroke: seatStroke }"
             style="
               fill: none;
-              stroke-width: 0.665001;
-              stroke-linecap: butt;
-              stroke-linejoin: miter;
+              stroke-width: 1.165;
               stroke-miterlimit: 4;
               stroke-dasharray: none;
               stroke-opacity: 1;
-              marker-end: url(#Arrow1Lend-30);
             "
+            inkscape:label="C-02"
           />
-          <path
-            id="path1043-10"
-            d="m -77.505288,51.705352 h 17.105239"
-            :style="{ stroke: arrowStroke }"
+          <rect
+            :style="{ stroke: seatStroke }"
             style="
               fill: none;
-              stroke-width: 0.665001;
-              stroke-linecap: butt;
-              stroke-linejoin: miter;
+              stroke-width: 1.165;
               stroke-miterlimit: 4;
               stroke-dasharray: none;
               stroke-opacity: 1;
-              marker-end: url(#Arrow1Lend-6);
             "
+            id="rect864-2-9-4"
+            width="22.58066"
+            height="16.013344"
+            x="26.420271"
+            y="133.9072"
+            inkscape:label="C-07"
+            transform="rotate(120)"
           />
-          <path
-            id="path1043-9"
-            d="m -349.06232,92.603819 6.22002,15.934271"
-            :style="{ stroke: arrowStroke }"
+          <rect
+            :style="{ stroke: seatStroke }"
             style="
               fill: none;
-              stroke-width: 0.665001;
-              stroke-linecap: butt;
-              stroke-linejoin: miter;
+              stroke-width: 1.165;
               stroke-miterlimit: 4;
               stroke-dasharray: none;
               stroke-opacity: 1;
-              marker-end: url(#Arrow1Lend-2);
             "
+            id="rect864-2-9-6-7"
+            width="22.58066"
+            height="16.013344"
+            x="3.8396032"
+            y="133.9072"
+            inkscape:label="C-08"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-5-6"
+            width="22.58066"
+            height="16.013344"
+            x="-18.741035"
+            y="133.9072"
+            inkscape:label="C-09"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-56-5"
+            width="22.58066"
+            height="16.013344"
+            x="-41.32169"
+            y="133.9072"
+            inkscape:label="C-10"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-91-6"
+            width="22.58066"
+            height="16.013344"
+            x="-63.902668"
+            y="133.9072"
+            inkscape:label="C-11"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-9"
+            width="22.58066"
+            height="16.013344"
+            x="-86.483345"
+            y="133.9072"
+            inkscape:label="C-12"
+            transform="rotate(120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-3"
+            width="22.58066"
+            height="16.013344"
+            x="136.62766"
+            y="7.9430752"
+            inkscape:label="C-13"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-0-7"
+            width="22.58066"
+            height="16.013344"
+            x="114.04676"
+            y="7.9430752"
+            inkscape:label="C-14"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-2-4"
+            width="22.58066"
+            height="16.013344"
+            x="91.466095"
+            y="7.9430752"
+            inkscape:label="C-15"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-1-5"
+            width="22.58066"
+            height="16.013344"
+            x="68.885704"
+            y="7.9430752"
+            inkscape:label="C-16"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-7-2"
+            width="22.58066"
+            height="16.013344"
+            x="46.305119"
+            y="7.9430752"
+            inkscape:label="C-17"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-2-9-70-3-20-54"
+            width="22.58066"
+            height="16.013344"
+            x="23.724449"
+            y="7.9430752"
+            inkscape:label="C-18"
+            transform="rotate(-120)"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-9-7-7"
+            width="22.58066"
+            height="16.013344"
+            x="-117.8867"
+            y="-24.517454"
+            inkscape:label="C-05"
+          />
+          <rect
+            :style="{ stroke: seatStroke }"
+            style="
+              fill: none;
+              stroke-width: 1.165;
+              stroke-miterlimit: 4;
+              stroke-dasharray: none;
+              stroke-opacity: 1;
+            "
+            id="rect864-3-4-4"
+            width="22.58066"
+            height="16.013344"
+            x="-140.46716"
+            y="-24.517454"
+            inkscape:label="C-06"
           />
         </g>
       </svg>

@@ -80,7 +80,7 @@ function generateAsk() {
   modal.open(ModalConfirmAction, {
     longDescription: [
       "A művelet a következő helyeket fogja létrehozni:",
-      "A-01 - E-18, HIDDEN-01 - HIDDEN-18, SWAP",
+      "A-01 - E-18, HIDDEN-01 - HIDDEN-18, REG-1 - REG-90, SWAP",
       "Folytatja?",
     ],
     title: "Ülőhelyek generálása",
