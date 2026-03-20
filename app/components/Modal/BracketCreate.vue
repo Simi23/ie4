@@ -1,5 +1,9 @@
 <template>
-  <UModal :ui="{ background: 'bg-transparent dark:bg-transparent' }">
+  <UModal
+    :ui="{
+      content: 'bg-transparent dark:bg-transparent',
+    }"
+  >
     <UCard>
       <template #header>
         <h1 class="text-2xl font-bold">Új keret</h1>

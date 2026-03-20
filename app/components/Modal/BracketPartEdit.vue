@@ -1,8 +1,7 @@
 <template>
   <UModal
     :ui="{
-      background: 'bg-transparent dark:bg-transparent',
-      width: 'md:max-w-2xl',
+      content: 'bg-transparent dark:bg-transparent md:max-w-2xl',
     }"
   >
     <UCard>
@@ -13,7 +12,7 @@
             <UButton
               v-if="state.tracked"
               label="Követés leállítása"
-              color="yellow"
+              color="warning"
               variant="soft"
               icon="i-material-symbols-visibility-off-outline"
               @click="untrack"
@@ -21,7 +20,7 @@
             <UButton
               v-else
               label="Követés"
-              color="yellow"
+              color="warning"
               icon="i-material-symbols-visibility-outline"
               @click="track"
             />
@@ -78,7 +77,7 @@
         <UButton
           label="Utolsó kör törlése"
           icon="i-material-symbols-delete-outline"
-          color="red"
+          color="error"
           @click="removeRound"
         />
       </div>
@@ -87,15 +86,15 @@
         <div class="flex w-full flex-row justify-end gap-2">
           <UButton
             label="Mégse"
-            color="red"
+            color="error"
             variant="soft"
             icon="i-heroicons-x-mark"
-            @click="modal.close"
+            @click="emit('success')"
           />
           <UButton
             label="Mentés"
             icon="i-heroicons-check"
-            color="green"
+            color="success"
             @click="save"
           />
         </div>
@@ -106,7 +105,6 @@
 
 <script lang="ts" setup>
 const loadingSpinner = useLoadingSpinner();
-const modal = useModal();
 
 const emit = defineEmits<{
   success: [];

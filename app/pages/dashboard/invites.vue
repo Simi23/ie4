@@ -19,7 +19,7 @@
           :key="inv.id"
           class="my-4 flex w-full flex-row flex-nowrap items-center justify-between md:my-6 lg:my-8"
         >
-          <div class="flex-grow">
+          <div class="grow">
             <h2 class="text-xl font-extrabold">{{ inv.teamName }}</h2>
             <h3 class="text-lg font-bold text-gray-500">
               {{ inv.competitionTitle }}

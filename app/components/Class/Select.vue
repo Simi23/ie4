@@ -11,19 +11,23 @@
       :popper="smPopper"
       :ui="smUi"
     >
-      <template #option="{ option: row }">
-        <span :class="['truncate', row.disabled == false ? 'pl-4' : '']">{{
-          row.label
-        }}</span>
+      <template #default="{ modelValue }">
+        <span
+          v-if="modelValue"
+          :class="['truncate', modelValue.disabled == false ? 'pl-4' : '']"
+          >{{ modelValue.label }}</span
+        >
       </template>
     </USelectMenu>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { SelectMenuItem } from "@nuxt/ui";
+
 const eventBus = useMittBus();
 
-const classGroups = ref();
+const classGroups = ref<SelectMenuItem[]>([]);
 
 type Props = {
   showHidden?: string;
@@ -44,6 +48,7 @@ const { refresh } = await useFetch("/api/classes", {
 
     for (let i = 0; i < response._data.length; i++) {
       const group = response._data[i];
+      if (!group) continue;
       const groupObject = {
         label: group.name,
         disabled: true,

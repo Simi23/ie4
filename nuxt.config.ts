@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite"
 import vuePlugin from "@vitejs/plugin-vue";
 
 export default defineNuxtConfig({
@@ -62,9 +63,6 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["stores"],
   },
-  ui: {
-    safelistColors: ["primary", "astro", "astro-gray"],
-  },
   mdc: {
     components: {
       prose: false,
@@ -80,6 +78,9 @@ export default defineNuxtConfig({
       // @ts-ignore
       plugins: [vuePlugin()],
     },
+  },
+  vite: {
+    plugins: [tailwindcss()]
   },
   security: {
     csrf: true,

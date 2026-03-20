@@ -12,28 +12,17 @@
         icon: 'i-heroicons-circle-stack-20-solid',
         label: 'Nincs megjeleníthető adat',
       }"
-    >
-      <template #state-data="{ row }">
-        <UBadge
-          size="xs"
-          variant="soft"
-          :label="row.hidden ? 'Rejtett' : 'Nyilvános'"
-          :color="row.hidden ? 'gray' : 'emerald'"
-        />
-      </template>
-      <template #action-data="{ row }">
-        <UButton
-          size="xs"
-          label="Törlés"
-          color="red"
-          @click="deleteClass(row.id)"
-        />
-      </template>
-    </UTable>
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { h, resolveComponent } from "vue";
+import type { TableColumn } from "@nuxt/ui";
+
+const UBadge = resolveComponent("UBadge");
+const UButton = resolveComponent("UButton");
+
 const csrf = useCsrf();
 const loadingSpinner = useLoadingSpinner();
 const eventBus = useMittBus();
@@ -49,26 +38,44 @@ const {
   },
 });
 
-const tableCols = [
+const tableCols: TableColumn<any>[] = [
   {
-    label: "Név",
-    key: "name",
-    sortable: true,
+    header: "Név",
+    accessorKey: "name",
+    enableSorting: true,
   },
   {
-    label: "Évfolyam",
-    key: "group",
-    sortable: true,
+    header: "Évfolyam",
+    accessorKey: "group",
+    enableSorting: true,
   },
   {
-    label: "Láthatóság",
-    key: "state",
-    sortable: true,
+    header: "Láthatóság",
+    id: "state",
+    enableSorting: true,
+    cell: ({ row }) => {
+      h(UBadge, {
+        size: "xs",
+        variant: "soft",
+        label: row.original.hidden ? "Rejtett" : "Nyilvános",
+        color: row.original.hidden ? "neutral" : "success",
+      });
+    },
   },
   {
-    label: "Művelet",
-    key: "action",
-    sortable: false,
+    header: "Művelet",
+    id: "action",
+    enableSorting: false,
+    cell: ({ row }) => {
+      h(UButton, {
+        size: "xs",
+        label: "Törlés",
+        variant: "soft",
+        onClick: () => {
+          deleteClass(row.original.id);
+        },
+      });
+    },
   },
 ];
 

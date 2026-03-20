@@ -4,7 +4,7 @@
     :ui="{
       header: { padding: 'p-0 sm:p-0' },
       base: 'flex flex-col flex-nowrap',
-      body: { base: 'flex-grow' },
+      body: { base: 'grow' },
     }"
     v-if="competition"
   >
@@ -25,20 +25,19 @@
       v-if="competition?.participation"
       label="Jelentkeztél"
       variant="subtle"
-      color="emerald"
+      color="success"
       icon="i-heroicons-check-circle-16-solid"
       size="sm"
-      class="mr-1"
-      :ui="{ rounded: 'rounded-full' }"
+      class="mr-1 rounded-full"
     />
     <UBadge
       v-if="competition?.invited"
       label="Meghívó vár"
       variant="subtle"
-      color="indigo"
+      color="info"
       icon="i-heroicons-envelope"
       size="sm"
-      :ui="{ rounded: 'rounded-full' }"
+      class="rounded-full"
     />
 
     <template #footer>
@@ -48,7 +47,7 @@
           block
           label="Meghívó megtekintése"
           variant="soft"
-          color="fuchsia"
+          color="secondary"
           class="mb-2"
           icon="i-heroicons-envelope-open"
           to="/dashboard/invites"

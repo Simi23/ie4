@@ -6,7 +6,7 @@
 
     <UModals />
     <USlideovers />
-    <LoadingBanner class="z-[1000]" />
+    <LoadingBanner class="z-1000" />
     <UNotifications />
   </div>
 </template>

@@ -3,9 +3,7 @@
     <h2 class="mb-2 text-lg font-semibold">Regisztrációs állapot</h2>
     <p>
       Regisztráció állapota:
-      <span :class="dRegOptions[regOption].color">{{
-        dRegOptions[regOption].text
-      }}</span>
+      <span :class="selected.color">{{ selected.text }}</span>
     </p>
   </div>
 </template>
@@ -17,6 +15,15 @@ const dRegOptions = [
   { text: "Nyitva", color: "text-emerald-500" },
   { text: "Lezárult", color: "text-red-500" },
 ];
+
+const defaultOption = {
+  text: "Ismeretlen",
+  color: "text-amber-400",
+};
+
+const selected = computed(() => {
+  return dRegOptions[regOption.value] ?? defaultOption;
+});
 
 const { refresh: refreshRegOption } = useFetch("/api/admin/regstatus", {
   lazy: true,

@@ -23,7 +23,6 @@ const props = withDefaults(defineProps<Props>(), {
   actionTextCancel: "Mégse",
 });
 
-const modal = useModal();
 const competitionState = ref({
   title: "",
   description: "",
@@ -70,6 +69,7 @@ onMounted(() => {
 
 const emit = defineEmits<{
   success: [competition: CompetitionSchema];
+  fail: [];
 }>();
 
 function submitClick() {
@@ -132,13 +132,13 @@ async function handleSubmit() {
       <template #footer>
         <div class="float-right">
           <UButton
-            @click="modal.close"
-            color="red"
+            @click="emit('fail')"
+            color="error"
             :label="props.actionTextCancel"
           />
           <UButton
             @click="submitClick"
-            color="emerald"
+            color="success"
             class="mx-2"
             :label="props.actionTextConfirm"
           />

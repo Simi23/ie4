@@ -143,6 +143,7 @@ async function newCompetitionModal() {
     onSuccess: (comp) => {
       newCompetition(comp);
     },
+    // onFail
   });
 }
 
@@ -186,6 +187,7 @@ async function editCompetitionModal(competitionId: string) {
     onSuccess: (comp) => {
       editCompetition(competitionId, comp);
     },
+    // onFail
   });
 }
 

@@ -2,7 +2,7 @@
 import type { CellData, DisplayBracket } from "~/utils/types";
 import ModalBracketPartEdit from "~/components/Modal/BracketPartEdit.vue";
 
-const modal = useModal();
+const modal = useOverlay().create(ModalBracketPartEdit)
 
 const props = defineProps<{
   editing: boolean;
@@ -152,7 +152,7 @@ function regenerateBracket() {
 function editPart(cellData: CellData) {
   if (!props.editing) return;
 
-  modal.open(ModalBracketPartEdit, {
+  modal.open({
     initData: {
       started: cellData.started,
       ended: cellData.ended,
@@ -172,9 +172,6 @@ function editPart(cellData: CellData) {
     },
     onSuccess: () => {
       modal.close();
-      emit("success");
-    },
-    onClose: () => {
       emit("success");
     },
   });

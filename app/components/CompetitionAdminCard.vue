@@ -8,7 +8,7 @@
         <span>Típus: </span>
         <UBadge
           :label="competition?.teamCompetition ? 'Csapatos' : 'Egyéni'"
-          :color="competition?.teamCompetition ? 'cyan' : 'fuchsia'"
+          :color="competition?.teamCompetition ? 'primary' : 'secondary'"
           :icon="
             competition?.teamCompetition
               ? 'i-heroicons-user-group-solid'
@@ -40,7 +40,7 @@
         <UButton
           label="Törlés"
           icon="i-heroicons-trash"
-          color="red"
+          color="error"
           @click="deleteCompetitionModal"
         />
       </div>
@@ -102,6 +102,7 @@ async function editCompetitionModal() {
     onSuccess: (comp) => {
       editCompetition(props.competitionId, comp);
     },
+    // onFail
   });
 }
 

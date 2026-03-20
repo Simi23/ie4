@@ -1,7 +1,7 @@
 <template>
   <UModal
     :ui="{
-      background: 'bg-transparent dark:bg-transparent',
+      content: 'bg-transparent dark:bg-transparent',
     }"
   >
     <UCard>
@@ -19,7 +19,7 @@
               data?.teamCompetition
                 ? (data.teams.find((t) => t.id == teamId)?.name ??
                   'Ismeretlen csapat')
-                : (data?.teams.find((t) => t.id == teamId)?.users[0].user
+                : (data?.teams.find((t) => t.id == teamId)?.users[0]?.user
                     .fullname ?? 'Ismeretlen játékos')
             "
           />
@@ -30,10 +30,10 @@
         <div class="flex w-full flex-row justify-end gap-2">
           <UButton
             label="Mégse"
-            color="red"
+            color="error"
             variant="soft"
             icon="i-heroicons-x-mark"
-            @click="modal.close"
+            @click="emit('success')"
           />
           <UButton
             label="Feltöltés"
@@ -49,7 +49,6 @@
 
 <script lang="ts" setup>
 const loadingSpinner = useLoadingSpinner();
-const modal = useModal();
 
 const emit = defineEmits<{
   success: [];

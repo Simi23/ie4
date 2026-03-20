@@ -1,7 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@nuxt/ui";
+@plugin "@tailwindcss/typography";
 
 body {
   overflow-x: hidden;
+}
+
+@theme {
+  --breakpoint-sm: 480px;
+  --breakpoint-lg: 1100px;
+}
+
+@theme static {
+  --color-astro-50: #edf1ff;
+  --color-astro-100: #dfe5ff;
+  --color-astro-200: #c5ceff;
+  --color-astro-300: #a2aeff;
+  --color-astro-400: #7d83fc;
+  --color-astro-500: #625ef6;
+  --color-astro-600: #5241ea;
+  --color-astro-700: #4633cf;
+  --color-astro-800: #3a2ca7;
+  --color-astro-900: #2a246e;
+  --color-astro-950: #1f194d;
+
+  --color-astro-gray-50: #e5e5e8;
+  --color-astro-gray-100: #d2d1d6;
+  --color-astro-gray-200: #c1c0c6;
+  --color-astro-gray-300: #aaaab5;
+  --color-astro-gray-400: #9190a0;
+  --color-astro-gray-500: #79778e;
+  --color-astro-gray-600: #5c5b77;
+  --color-astro-gray-700: #3e3d59;
+  --color-astro-gray-800: #272542;
+  --color-astro-gray-900: #181633;
+  --color-astro-gray-950: #070521;
+
+  --color-fuchsia-50: #fef5fd;
+  --color-fuchsia-100: #fdeafd;
+  --color-fuchsia-200: #fbd3fa;
+  --color-fuchsia-300: #f6b1f0;
+  --color-fuchsia-400: #f082e5;
+  --color-fuchsia-500: #e352d5;
+  --color-fuchsia-600: #bc2fab;
+  --color-fuchsia-700: #a52693;
+  --color-fuchsia-800: #872177;
+  --color-fuchsia-900: #6f2062;
+  --color-fuchsia-950: #49093e;
+
+  --color-cyan-50: #f1f9fe;
+  --color-cyan-100: #e3f1fb;
+  --color-cyan-200: #c0e5f7;
+  --color-cyan-300: #88d1f1;
+  --color-cyan-400: #49bae7;
+  --color-cyan-500: #2aa9de;
+  --color-cyan-600: #1381b6;
+  --color-cyan-700: #116793;
+  --color-cyan-800: #12587a;
+  --color-cyan-900: #154965;
+  --color-cyan-950: #0e2f43;
+
+  --color-indigo-50: #f2f5fc;
+  --color-indigo-100: #e2eaf7;
+  --color-indigo-200: #cbd9f2;
+  --color-indigo-300: #a8c2e8;
+  --color-indigo-400: #7ea2dc;
+  --color-indigo-500: #6083d1;
+  --color-indigo-600: #5571c7;
+  --color-indigo-700: #4258b3;
+  --color-indigo-800: #3b4992;
+  --color-indigo-900: #334075;
+  --color-indigo-950: #232948;
+
+  --color-discord-50: #5865f2;
+  --color-discord-100: #5865f2;
+  --color-discord-200: #5865f2;
+  --color-discord-300: #5865f2;
+  --color-discord-400: #5865f2;
+  --color-discord-500: #5865f2;
+  --color-discord-600: #4445e7;
+  --color-discord-700: #5865f2;
+  --color-discord-800: #5865f2;
+  --color-discord-900: #5865f2;
+  --color-discord-950: #5865f2;
 }

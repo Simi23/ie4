@@ -1,14 +1,14 @@
 <template>
   <div>
     <h2 class="mb-2 text-lg font-semibold">Helyek</h2>
-    <UMeter
+    <UProgress
       :value="seatStats.occupiedSeats"
       :max="seatStats.totalSeats"
-      color="amber"
+      color="warning"
       size="lg"
       class="my-2 w-1/3 min-w-64"
     >
-    </UMeter>
+    </UProgress>
     <p>
       Összes: <span class="text-gray-200">{{ seatStats.totalSeats }}</span>
     </p>
