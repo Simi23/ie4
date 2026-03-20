@@ -251,52 +251,35 @@
             <!-- 4/4 -->
             <!-- SEAT -->
             <template #page4>
-              <UForm
-                :schema="registrationSchemaSeat"
-                :state="regStateSeat"
-                @submit.prevent="completeStage(4)"
-                @error="stageError"
-              >
-                <span class="mr-1 text-lg font-bold">
-                  Kiválasztott ülőhely:
-                </span>
-                <span class="text-lg">{{
-                  registrationState.seatName.length == 0
-                    ? "nincs"
-                    : registrationState.seatName
+              <p class="text-center text-lg">
+                Az idei rendezvényen a székek kijelölése később történik.
+              </p>
+              <p class="text-center">
+                Szabad helyek száma:
+                <span class="font-bold">{{
+                  freeSeatCount?.count ?? "Ismeretlen"
                 }}</span>
-                <UFormGroup name="seatName" class="mt-3 h-[340px]">
-                  <SeatMap
-                    ref="register-map"
-                    svg-id="register-map"
-                    arrow-stroke="#ffffff"
-                    seat-stroke="#222222"
-                    letter-stroke="#ffffff"
-                    class="w-[380px] md:w-[480px]"
-                    @chosen-seat="seatEvent"
-                  />
-                </UFormGroup>
+              </p>
 
-                <!-- ACTION BUTTONS -->
-                <div class="float-right mt-5">
-                  <UButton
-                    size="sm"
-                    label="Vissza"
-                    @click="revertStage(4)"
-                    variant="ghost"
-                    icon="i-heroicons-arrow-small-left-solid"
-                    class="h-full align-middle"
-                  />
-                  <UButton
-                    class="ml-2 align-middle"
-                    icon="i-heroicons-user-plus-solid"
-                    size="sm"
-                    label="Regisztrálok"
-                    type="submit"
-                  />
-                </div>
-                <div class="clear-both"></div>
-              </UForm>
+              <!-- ACTION BUTTONS -->
+              <div class="float-right mt-5">
+                <UButton
+                  size="sm"
+                  label="Vissza"
+                  @click="revertStage(4)"
+                  variant="ghost"
+                  icon="i-heroicons-arrow-small-left-solid"
+                  class="h-full align-middle"
+                />
+                <UButton
+                  class="ml-2 align-middle"
+                  icon="i-heroicons-user-plus-solid"
+                  size="sm"
+                  label="Regisztrálok"
+                  @click="completeStage(4)"
+                />
+              </div>
+              <div class="clear-both"></div>
             </template>
           </CarouselMenu>
         </UCard>
@@ -307,21 +290,17 @@
 
 <script lang="ts" setup>
 import {
-  registrationSchema,
   registrationSchema1p3,
   registrationSchema2p3,
   registrationSchema3p3,
-  registrationSchemaSeat,
   type RegistrationSchema,
   type RegistrationSchema1p3,
   type RegistrationSchema2p3,
   type RegistrationSchema3p3,
-  type RegistrationSchemaSeat,
 } from "#shared/schemas/registrationSchema";
-import { type UForm } from "#build/components";
+import type { UForm } from "#build/components";
 import ClassSelect from "~/components/Class/Select.vue";
 import CarouselMenu from "~/components/CarouselMenu.vue";
-import SeatMap from "~/components/SeatMap.vue";
 import ModalConfirmMessage from "~/components/Modal/ConfirmMessage.vue";
 
 definePageMeta({
@@ -330,11 +309,9 @@ definePageMeta({
 
 type t_ClassSelect = InstanceType<typeof ClassSelect>;
 type t_CarouselMenu = InstanceType<typeof CarouselMenu>;
-type t_SeatMap = InstanceType<typeof SeatMap>;
 
 const classRef = useTemplateRef<t_ClassSelect>("class-selector");
 const cmRef = useTemplateRef<t_CarouselMenu>("registercm");
-const r_SeatMap = useTemplateRef<t_SeatMap>("register-map");
 
 const toast = useToast();
 const loadingSpinner = useLoadingSpinner();
@@ -358,7 +335,6 @@ const registrationState = ref<RegistrationSchema>({
   ownPc: true,
   ethernetPort: false,
   ownChair: false,
-  seatName: "",
 });
 
 const regState1p3 = computed<RegistrationSchema1p3>(() => {
@@ -385,12 +361,6 @@ const regState3p3 = computed<RegistrationSchema3p3>(() => {
   };
 });
 
-const regStateSeat = computed<RegistrationSchemaSeat>(() => {
-  return {
-    seatName: registrationState.value.seatName,
-  };
-});
-
 // PC / Ethernet integrity check
 watch(
   registrationState,
@@ -408,43 +378,20 @@ const { data: schoolPc, refresh: refreshSchoolPc } = useFetch(
   "/api/stat/schoolpc",
   {
     onResponse: (data) => {
-      if (data.response._data.freePcs === 0) {
+      if (data.response._data?.freePcs === 0) {
         registrationState.value.ownPc = true;
       }
     },
   },
 );
 
-const { data: freeSeats, refresh: refreshFreeSeats } = useFetch(
-  "/api/stat/freeseats",
+const { data: freeSeatCount, refresh: refreshFreeSeats } = useFetch(
+  "/api/stat/regseats",
   {
     server: false,
     lazy: true,
   },
 );
-
-type Seat = {
-  id: string;
-  name: string;
-};
-
-function recolorSeats() {
-  r_SeatMap.value?.clearSeatEvents();
-  r_SeatMap.value?.changeSeatColour("all", "#b91c1c");
-  if (!Array.isArray(freeSeats.value) || freeSeats.value == null) return;
-  const seatArray: Seat[] = freeSeats.value;
-  for (let i = 0; i < seatArray.length; i++) {
-    const cSeat = seatArray[i];
-    r_SeatMap.value?.changeSeatColour(cSeat.name, "#059669");
-    r_SeatMap.value?.assignSeat(cSeat.name);
-  }
-  r_SeatMap.value?.changeSeatColour(
-    registrationState.value.seatName,
-    "#22d3ee",
-  );
-}
-
-watch(freeSeats, recolorSeats);
 
 async function register() {
   loadingSpinner.value = true;
@@ -459,19 +406,7 @@ async function register() {
   }
   loadingSpinner.value = false;
 
-  modal.open(ModalConfirmMessage, {
-    title: "Figyelem!",
-    longDescription: [
-      "A regisztrációd sikeres!",
-      "Amennyiben nem jelentkezel csapatos versenyekre, fenntartjuk annak jogát, hogy más csapatok összeültetése érdekében áthelyezzünk téged! Ebben az esetben emailben értesítünk!",
-    ],
-    timer: 10,
-    confirmText: "Elfogadom",
-    onSuccess: async () => {
-      modal.close();
-      await navigateTo("/regcomplete");
-    },
-  });
+  await navigateTo("/regcomplete");
 }
 
 /**
@@ -515,13 +450,6 @@ function stageError() {
     icon: "i-heroicons-x-mark-20-solid",
     color: "red",
   });
-}
-
-function seatEvent(seatName: string) {
-  console.log(seatName);
-  registrationState.value.seatName = seatName;
-  recolorSeats();
-  r_SeatMap.value?.changeSeatColour(seatName, "#22d3ee");
 }
 </script>
 

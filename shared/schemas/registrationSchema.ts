@@ -17,7 +17,6 @@ export const registrationSchema = z
     ownPc: z.boolean(),
     ethernetPort: z.boolean(),
     ownChair: z.boolean(),
-    seatName: z.string().min(1, "Válassz ki egy ülőhelyet!"),
   })
   .refine((data) => data.password == data.confirmPassword, {
     message: "Nem egyeznek a jelszavak!",
@@ -66,11 +65,3 @@ export const registrationSchema3p3 = z.object({
 });
 
 export type RegistrationSchema3p3 = z.output<typeof registrationSchema3p3>;
-
-// SEAT
-
-export const registrationSchemaSeat = z.object({
-  seatName: z.string().min(1, "Válassz ki egy ülőhelyet!"),
-});
-
-export type RegistrationSchemaSeat = z.output<typeof registrationSchemaSeat>;

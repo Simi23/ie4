@@ -33,6 +33,8 @@ const strings = {
   "email-already-exists": "Ezzel az email címmel már létezik fiók!",
   "username-already-exists": "Ezzel a felhasználónévvel már létezik fiók!",
   "seat-taken": "A kiválasztott ülőhely foglalt!",
+  "seat-taken-try-again": "Helyfoglalási hiba történt, kérlek, próbáld újra!",
+  "no-seats-left": "Az ülőhelyek elfogytak!",
   "no-more-pc": "Elfogytak az iskolai számítógépek!",
   "content-not-found": "A tartalom nem található!",
   "competition-not-found": "A verseny nem található!",

@@ -69,6 +69,7 @@ export default defineEventHandler(async (event) => {
         create: {
           name: "INIT-SEAT",
           public: false,
+          type: "Admin",
         },
       },
     },
