@@ -92,17 +92,23 @@ const formState = ref({
   ownChair: false,
 });
 
-const { data: userData } = useFetch<UserData>(`/api/user/${props.userId}`, {
-  onResponse: (r) => {
-    formState.value.fullname = r.response._data.fullname;
-    formState.value.classId = r.response._data.class.id;
-    formState.value.email = r.response._data.email;
-    formState.value.adminClass = r.response._data.adminClass;
-    formState.value.ownPc = r.response._data.ownPc;
-    formState.value.ethernetPort = r.response._data.ethernetPort;
-    formState.value.ownChair = r.response._data.ownChair;
+const { data: userData, refresh } = useFetch<UserData>(
+  `/api/user/${props.userId}`,
+  {
+    server: false,
+    key: () => `userupdatemodal-${props.userId}`,
+    onResponse: async (ctx) => {
+      if (!ctx.response._data) return;
+      formState.value.fullname = ctx.response._data.fullname;
+      formState.value.classId = ctx.response._data.class.id;
+      formState.value.email = ctx.response._data.email;
+      formState.value.adminClass = ctx.response._data.adminClass;
+      formState.value.ownPc = ctx.response._data.ownPc;
+      formState.value.ethernetPort = ctx.response._data.ethernetPort;
+      formState.value.ownChair = ctx.response._data.ownChair;
+    },
   },
-});
+);
 
 const options = [
   {
