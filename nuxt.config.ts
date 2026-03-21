@@ -87,6 +87,17 @@ export default defineNuxtConfig({
         driver: "fs",
         base: "./server/mail/templates",
       },
+      teamlogo: {
+        driver: "fs",
+        base: "./uploads",
+      },
+    },
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ["sharp"],
+      },
     },
   },
   security: {

@@ -55,6 +55,8 @@ const strings = {
   "error-in-process": "Hiba a kérés feldolgozásában!",
   "bracket-count-mismatch":
     "Eltérés a versenyzők száma és a keret mérete között!",
+  "delete-logo-first": "Először ki kell törölni a meglévő logót!",
+  "error-reading-file": "A fájl olvasása során hiba lépett fel.",
 };
 
 export const huLang = new Proxy(strings, handler);

@@ -28,6 +28,10 @@ model Team {
     competition   Competition  @relation(fields: [competitionId], references: [id], onDelete: Cascade)
     competitionId String
 
+    color        String?
+    logo         String?
+    logoApproved Boolean @default(false)
+
     brackets BracketPart[]
     invites  Invite[]
 }

@@ -12,6 +12,7 @@ services:
       REDIS_URL: "redis://redis:6379"
     volumes:
       - ie3images:/app/public/images
+      # + ./uploads!!!
     restart: unless-stopped
     ports:
       - 3000:3000
