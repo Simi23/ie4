@@ -1,5 +1,3 @@
-import vuePlugin from "@vitejs/plugin-vue";
-
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   runtimeConfig: {
@@ -83,9 +81,12 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    rollupConfig: {
-      // @ts-ignore
-      plugins: [vuePlugin()],
+    preset: "bun",
+    storage: {
+      templates: {
+        driver: "fs",
+        base: "./server/mail/templates",
+      },
     },
   },
   security: {

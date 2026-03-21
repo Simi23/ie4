@@ -1,0 +1,49 @@
+<mjml>
+  <mj-head>
+    <mj-title>Fontos információk</mj-title>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image
+          src="https://infosokejszakaja.hu/wp-content/uploads/2026/03/mailheader.jpg"
+        >
+        </mj-image>
+
+        <mj-divider border-color="#154965"></mj-divider>
+
+        <mj-text
+          font-size="18px"
+          padding-top="0px"
+          color="#1d232b"
+          font-family="helvetica"
+        >
+          <h1>Kedves Játékos!</h1>
+          <p>
+            Holnap kezdődik az <b>Infósok Éjszakája</b>! Néhány fontosabb
+            információ:
+          </p>
+
+          <br />
+
+          <p>
+            Nyitási idő: <b>{{ openTime }}</b>
+          </p>
+          <p>
+            Kezdési idő: <b>{{ startTime }}</b>
+          </p>
+          <p>
+            Az ülőhelyed: <b>{{ seat }}</b>
+          </p>
+
+          <br />
+
+          <p>Számítunk a jelenlétedre!</p>
+          <p><i>Infósok Éjszakája</i></p>
+        </mj-text>
+
+        <mj-divider border-color="#154965"></mj-divider>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

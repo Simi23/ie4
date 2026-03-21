@@ -1,5 +1,5 @@
 import createNotification from "#server/utils/createNotification";
-import { testMail, lastCallMail } from "~~/mail/mail";
+import { lastCallMail } from "#server/mail/mail";
 import { z } from "zod";
 import adminCheck from "#server/utils/adminCheck";
 import { prisma } from "~~/db/prismaClient";

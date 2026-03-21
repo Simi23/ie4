@@ -1,0 +1,38 @@
+<mjml>
+  <mj-head>
+    <mj-title>Átültetés - Infósok Éjszakája</mj-title>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image
+          src="https://infosokejszakaja.hu/wp-content/uploads/2026/03/mailheader.jpg"
+        >
+        </mj-image>
+
+        <mj-divider border-color="#154965"></mj-divider>
+
+        <mj-text
+          font-size="18px"
+          padding-top="0px"
+          color="#1d232b"
+          font-family="helvetica"
+        >
+          <h1>Kedves Játékos!</h1>
+          <p>
+            A csapatok összeültetése érdekében a rendezvény szervezői átültettek
+            téged.
+          </p>
+
+          <br />
+
+          <p>
+            Az új ülőhelyed: <b>{{ newSeat }}</b>
+          </p>
+        </mj-text>
+
+        <mj-divider border-color="#154965"></mj-divider>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

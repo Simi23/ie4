@@ -69,9 +69,7 @@ async function getTransporter(): Promise<
 export async function sendMail(
   recipient: string,
   subject: string,
-  content: string,
   htmlContent: string,
-  bgCid: string,
 ) {
   await (
     await getTransporter()
@@ -79,16 +77,6 @@ export async function sendMail(
     from: transporter?.options.from,
     to: recipient,
     subject: subject,
-    text: content,
     html: htmlContent,
-    attachments: [
-      {
-        cid: bgCid,
-        filename: "background.jpg",
-        path: "./public/mailbg.jpg",
-        encoding: "base64",
-        contentDisposition: "inline",
-      },
-    ],
   });
 }

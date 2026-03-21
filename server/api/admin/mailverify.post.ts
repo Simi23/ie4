@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { prisma } from "~~/db/prismaClient";
-import { registerMail } from "~~/mail/mail";
+import { registerMail } from "#server/mail/mail";
 import adminCheck from "#server/utils/adminCheck";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";

@@ -1,0 +1,42 @@
+<mjml>
+  <mj-head>
+    <mj-title>Email megerősítése</mj-title>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image
+          src="https://infosokejszakaja.hu/wp-content/uploads/2026/03/mailheader.jpg"
+        >
+        </mj-image>
+
+        <mj-divider border-color="#154965"></mj-divider>
+
+        <mj-text
+          font-size="18px"
+          padding-top="0px"
+          color="#1d232b"
+          font-family="helvetica"
+        >
+          <h1>Kedves Játékos!</h1>
+          <p>
+            Köszönjük a regisztrációt! Kérlek, az alábbi gomb megnyomásával
+            erősítsd meg az email címedet!
+          </p>
+        </mj-text>
+
+        <mj-button
+          font-family="helvetica"
+          background-color="#154965"
+          font-weight="800"
+          font-size="18px"
+          href="{{ emailVerifyLink }}"
+        >
+          Email megerősítése
+        </mj-button>
+
+        <mj-divider border-color="#154965"></mj-divider>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

@@ -6,7 +6,7 @@ import {
 import type { SafeParseReturnType } from "zod";
 import { logEventAction } from "#server/utils/logger";
 import createNotification from "#server/utils/createNotification";
-import { registerMail } from "~~/mail/mail";
+import { registerMail } from "#server/mail/mail";
 import * as argon2 from "argon2";
 
 export default defineEventHandler(async (event) => {
