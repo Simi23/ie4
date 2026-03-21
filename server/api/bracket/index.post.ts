@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 import { prisma } from "~~/db/prismaClient";
 import { bracketCreateSchema } from "#shared/schemas/bracket";
 import adminCheck from "#server/utils/adminCheck";

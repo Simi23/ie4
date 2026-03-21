@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { z } from "zod";
+import z from "zod";
 
 const { token } = useRoute().query;
 const loadingSpinner = useLoadingSpinner();

@@ -1,6 +1,6 @@
 import createNotification from "#server/utils/createNotification";
 import { lastCallMail } from "#server/mail/mail";
-import { z } from "zod";
+import z from "zod";
 import adminCheck from "#server/utils/adminCheck";
 import { prisma } from "~~/db/prismaClient";
 import { mailLimiter } from "#server/utils/limiter";

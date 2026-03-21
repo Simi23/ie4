@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { z } from "zod";
+import z from "zod";
 
 const loadingSpinner = useLoadingSpinner();
 

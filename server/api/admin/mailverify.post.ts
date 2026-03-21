@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 import { prisma } from "~~/db/prismaClient";
 import { registerMail } from "#server/mail/mail";
 import adminCheck from "#server/utils/adminCheck";

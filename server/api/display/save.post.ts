@@ -1,5 +1,5 @@
 import { $Enums, Prisma } from "@prisma/client";
-import { z } from "zod";
+import z from "zod";
 import { prisma } from "~~/db/prismaClient";
 import adminCheck from "#server/utils/adminCheck";
 import { catchError } from "#server/utils/catchError";

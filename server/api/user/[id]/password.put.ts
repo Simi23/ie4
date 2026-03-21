@@ -3,7 +3,7 @@ import adminCheck from "#server/utils/adminCheck";
 import { catchError } from "#server/utils/catchError";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";
-import { z } from "zod";
+import z from "zod";
 import * as argon2 from "argon2";
 
 const passwordSchema = z.object({

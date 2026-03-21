@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 import { prisma } from "~~/db/prismaClient";
 import { catchError } from "#server/utils/catchError";
 import checkTeamLeader from "#server/utils/checkTeamLeader";
