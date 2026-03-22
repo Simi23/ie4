@@ -31,6 +31,7 @@
     "argon2": "^0.44.0",
     "baseline-browser-mapping": "^2.10.9",
     "caniuse-lite": "^1.0.30001780",
+    "discord.js": "^14.25.1",
     "ipx": "^3.1.1",
     "limiter": "^3.0.0",
     "mitt": "^3.0.1",

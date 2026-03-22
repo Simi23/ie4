@@ -100,5 +100,12 @@ export default defineEventHandler(async (event) => {
     );
   }
 
+  const guildId = await getGuildId();
+  const roleId = await getRoleId();
+
+  if (guildId && roleId) {
+    await assignDcRole(guildId, linkResult.dcId, roleId);
+  }
+
   return sendRedirect(event, `${cfg.public.siteName}/dashboard/settings`);
 });

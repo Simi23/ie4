@@ -84,6 +84,11 @@ export const adminMenuLevel2: DeepMenuList = [
       to: "/dashboard/admin/message",
       icon: "i-heroicons-envelope-solid",
     },
+    {
+      label: "Discord",
+      to: "/dashboard/admin/discord",
+      icon: "i-fa6-brands-discord",
+    },
   ],
   [
     {

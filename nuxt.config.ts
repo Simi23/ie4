@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     discord: {
       clientId: "",
       clientSecret: "",
+      botToken: "",
     },
   },
   routeRules: {

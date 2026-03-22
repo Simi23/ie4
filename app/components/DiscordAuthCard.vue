@@ -26,14 +26,23 @@
       icon="i-heroicons-link"
       @click="redirectToDiscord"
     />
-    <UButton
-      v-else
-      label="Fiók leválasztása"
-      icon="i-heroicons-link-slash"
-      color="red"
-      variant="soft"
-      @click="disconnectDiscord"
-    />
+
+    <div v-else class="flex flex-row gap-2">
+      <UButton
+        label="Fiók leválasztása"
+        icon="i-heroicons-link-slash"
+        color="red"
+        variant="soft"
+        @click="disconnectDiscord"
+      />
+      <UButton
+        label="Hitelesített rang újbóli igénylése"
+        icon="i-heroicons-check-badge-solid"
+        @click="refreshDiscordRole"
+        :loading="refreshLoading"
+        :disabled="refreshLoading"
+      />
+    </div>
   </UCard>
 </template>
 
@@ -90,6 +99,15 @@ async function disconnectDiscord() {
       refresh();
     },
   });
+}
+
+const refreshLoading = ref(false);
+async function refreshDiscordRole() {
+  refreshLoading.value = true;
+  await $fetchCsrfNotification("/api/discord/reassign", {
+    method: "POST",
+  }).catch();
+  refreshLoading.value = false;
 }
 </script>
 

@@ -57,6 +57,9 @@ const strings = {
     "Eltérés a versenyzők száma és a keret mérete között!",
   "delete-logo-first": "Először ki kell törölni a meglévő logót!",
   "error-reading-file": "A fájl olvasása során hiba lépett fel.",
+  "dc-not-connected": "Nincs társított Discord fiók!",
+  "error-assigning-dc-role":
+    "Hiba lépett fel a Discord rang hozzárendelése során!",
 };
 
 export const huLang = new Proxy(strings, handler);
