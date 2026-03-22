@@ -9,6 +9,7 @@ RUN cd /temp/dev && bun install --frozen-lockfile
 
 RUN mkdir -p /temp/prod
 COPY package.json bun.lock /temp/prod/
+COPY patches /temp/prod/patches
 RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 FROM base AS prerelease
