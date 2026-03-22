@@ -1,23 +1,39 @@
-FROM node:22 AS build
+FROM oven/bun:1 AS base
+WORKDIR /usr/src/app
+
+FROM base AS install
+RUN mkdir -p /temp/dev
+COPY package.json bun.lock /temp/dev/
+RUN cd /temp/dev && bun install --frozen-lockfile
+
+RUN mkdir -p /temp/prod
+COPY package.json bun.lock /temp/prod/
+RUN cd /temp/prod && bun install --frozen-lockfile --production
+
+FROM base AS prerelease
 ENV NODE_ENV=production
-WORKDIR /home/node/app
-COPY package*.json yarn.lock ./
-COPY prisma ./prisma/
-RUN yarn install --production
-RUN npx prisma generate
+ENV DATABASE_URL="postgresql://localhost/test"
+COPY --from=install /temp/dev/node_modules node_modules
+COPY prisma.config.ts ./
+COPY prisma ./prisma
+RUN bun --bun run prisma generate
 COPY . .
-RUN yarn build
+RUN bun run build
 
-FROM node:22-bookworm-slim AS final
-ENV NODE_ENV=production
+FROM base AS release
 RUN apt update -y && apt install -y openssl
-WORKDIR /app/
-COPY --from=build /home/node/app/.output ./
-COPY --from=build /home/node/app/package*.json ./
-COPY --from=build /home/node/app/prisma ./prisma
-RUN yarn global add prisma@6.2.1
+COPY --from=prerelease /usr/src/app/.output ./
+COPY --from=prerelease /usr/src/app/package.json ./
+# COPY --from=prerelease /usr/src/app/generated generated
+COPY --from=prerelease /usr/src/app/prisma prisma
+COPY --from=prerelease /usr/src/app/prisma.config.ts ./
+RUN bun add prisma@7.5.0
+RUN mkdir -p /usr/src/app/public/images
+RUN mkdir -p /usr/src/app/uploads
+RUN chown -R bun:bun /usr/src/app
 
+USER bun
 EXPOSE 3000
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
-CMD ["yarn", "run", "start:migrate:prod"]
+CMD ["bun", "run", "start:migrate:prod"]
