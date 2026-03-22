@@ -2,13 +2,14 @@
   <div
     class="size-transition relative"
     :class="{ 'mask-overflow': moving }"
-    :style="{ height: boxHeight, width: boxWidth }"
+    :style="{ height: boxHeight, width: maxwidth ? '100%' : boxWidth }"
   >
     <div
       v-for="i in props.pagecount"
       :id="`${props.name}page${i}`"
       :key="i"
       class="scrolled-page absolute left-0 top-0 h-fit"
+      :class="{ 'w-full': maxwidth }"
     >
       <slot :name="'page' + i" />
     </div>
@@ -20,6 +21,7 @@ interface Props {
   pagecount?: number;
   initialheight?: string;
   initialwidth?: string;
+  maxwidth?: boolean;
   name: string;
 }
 
@@ -27,6 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
   pagecount: 1,
   initialheight: "300px",
   initialwidth: "300px",
+  maxwidth: false,
 });
 
 const boxHeight = ref<string>(props.initialheight);
@@ -35,6 +38,7 @@ const moving = ref<boolean>(false);
 
 defineExpose({
   jumpTo,
+  recalc,
 });
 
 let curPageNum = 1;
@@ -88,7 +92,7 @@ async function jumpTo(number: number) {
   moving.value = false;
 }
 
-onMounted(() => {
+function recalc() {
   const currentElement = document.getElementById(
     `${props.name}page${curPageNum}`,
   );
@@ -96,6 +100,10 @@ onMounted(() => {
   boxHeight.value = currentElement.clientHeight + "px";
   boxWidth.value = currentElement.clientWidth + "px";
   currentElement.style.visibility = "visible";
+}
+
+onMounted(() => {
+  recalc();
 });
 </script>
 

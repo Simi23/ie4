@@ -4,7 +4,8 @@
       <template #header>
         <h1 class="text-xl font-bold">{{ title }}</h1>
       </template>
-      <NuxtImg :src="path"></NuxtImg>
+      <img v-if="regular" :src="path" />
+      <NuxtImg v-else :src="path"></NuxtImg>
     </UCard>
   </UModal>
 </template>
@@ -13,6 +14,7 @@
 interface Props {
   path: string;
   title: string;
+  regular?: boolean;
 }
 defineProps<Props>();
 </script>

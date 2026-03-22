@@ -16,6 +16,7 @@ logs
 
 # Upload folder
 public/images/*
+uploads
 
 # Misc
 .DS_Store

@@ -104,6 +104,11 @@ export const adminMenuLevel2: DeepMenuList = [
       icon: "i-heroicons-trophy-solid",
     },
     {
+      label: "Csapatok",
+      to: "/dashboard/admin/groups",
+      icon: "i-heroicons-user-group-solid",
+    },
+    {
       label: "Keretek",
       to: "/dashboard/admin/brackets",
       icon: "i-heroicons-table-cells-solid",

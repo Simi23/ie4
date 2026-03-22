@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const logoUrl = `/logo/${logo.logo}.webp`;
+  const logoUrl = logo.logo ? `/logo/${logo.logo}.webp` : null;
 
   return {
     teamId: logo.id,
