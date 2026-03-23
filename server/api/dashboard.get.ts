@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
     select: {
       paid: true,
       emailVerified: true,
+      dcConnected: true,
     },
   });
 
@@ -100,6 +101,15 @@ export default defineEventHandler(async (event) => {
       severity: "WARN",
       title: "Hiba",
       message: "Még nem erősítetted meg az email címedet!",
+    });
+  }
+
+  if (userStatus && !userStatus.dcConnected) {
+    notifications.push({
+      severity: "WARN",
+      title: "Hiba",
+      message:
+        "Még nincs összekötve a felhasználód a Discord fiókoddal. Pótold mihamarabb a 'Fiókom' menüpontban!",
     });
   }
 
