@@ -41,6 +41,14 @@
           <UBadge label="Nincs logó" color="gray" />
         </template>
       </template>
+      <template #competitionName-data="{ row }">
+        <NuxtLink
+          :to="`/dashboard/admin/competition/${row.competitionId}`"
+          class="underline underline-offset-4"
+        >
+          {{ row.competitionName }}
+        </NuxtLink>
+      </template>
       <template #action-data="{ row }">
         <template v-if="row.logoUrl">
           <div class="flex flex-row flex-nowrap gap-2">
@@ -107,7 +115,7 @@ const tableCols = [
   {
     label: "Logó státusz",
     key: "logo",
-    sortable: true,
+    sortable: false,
   },
   {
     label: "Művelet",

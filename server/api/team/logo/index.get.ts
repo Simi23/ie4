@@ -37,6 +37,7 @@ export default defineEventHandler(async (event) => {
       id: t.id,
       name: t.name,
       competitionName: t.competition.title,
+      competitionId: t.competitionId,
       logoUrl: logoUrl,
       logoApproved: t.logoApproved,
       logoFullUrl: `${useRuntimeConfig().public.siteName}${logoUrl}`,
