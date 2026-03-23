@@ -14,6 +14,11 @@ export default defineEventHandler(async (event) => {
           },
         },
       },
+      where: {
+        competition: {
+          teamCompetition: true,
+        },
+      },
     }),
   );
 
