@@ -13,9 +13,11 @@ services:
       # Set this to "1" to read IP addresses from X-Forwarded-For headers
       NUXT_TRUST_PROXY: "1"
       # Discord API Client ID
-      NUXT_DISCORD_CLIENT_ID: "1338156490137141270"
+      NUXT_DISCORD_CLIENT_ID: "discord-client-id"
       # Discord API Client secret
-      NUXT_DISCORD_CLIENT_SECRET: "ArYraRLS5JxiW2F2CV7AdCq-GCjABOSi"
+      NUXT_DISCORD_CLIENT_SECRET: "discord-client-secret"
+      # Discord Bot Token (for assigning roles to users)
+      NUXT_DISCORD_BOT_TOKEN: "discord-bot-token"
     volumes:
       - images:/usr/src/app/public/images
       - uploads:/usr/src/app/uploads
