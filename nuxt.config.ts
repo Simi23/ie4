@@ -125,6 +125,12 @@ export default defineNuxtConfig({
     security: {
       headers: {
         crossOriginEmbedderPolicy: "unsafe-none",
+        crossOriginOpenerPolicy: "unsafe-none",
+        contentSecurityPolicy: false,
+      },
+      corsHandler: {
+        origin: "*",
+        methods: "*",
       },
     },
     csurf: {
