@@ -33,8 +33,10 @@
             variant="subtle"
           />
           <UBadge
-            :label="row.ethernetPort ? 'RJ45' : 'Wifi'"
-            icon="i-heroicons-chart-bar-solid"
+            :label="row.ethernetPort ? 'RJ45' : 'Wi-Fi'"
+            :icon="
+              row.ethernetPort ? 'i-material-symbols-cable' : 'i-heroicons-wifi'
+            "
             size="xs"
             :color="row.ethernetPort ? 'cyan' : 'amber'"
             variant="subtle"
