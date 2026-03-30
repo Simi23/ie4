@@ -1,0 +1,67 @@
+import z from "zod";
+import { prisma } from "~~/db/prismaClient";
+
+const requestSchema = z.object({
+  reason: z.string().optional(),
+  userIds: z.array(z.string()),
+  seatIds: z.array(z.string()),
+});
+
+export default defineEventHandler(async (event) => {
+  adminCheck(event, 2);
+
+  const groupId = event.context.params?.id;
+
+  if (!groupId) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "body-invalid",
+    });
+  }
+
+  const body = await readValidatedBody(event, requestSchema.safeParse);
+
+  if (body.error) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: "Bad Request",
+      message: "body-invalid",
+    });
+  }
+
+  const [groupError, group] = await catchError(
+    prisma.seatingGroup.update({
+      where: {
+        id: groupId,
+      },
+      data: {
+        reason: body.data.reason,
+        users: {
+          set: body.data.userIds.map((u) => ({
+            id: u,
+          })),
+        },
+        seats: {
+          set: body.data.seatIds.map((s) => ({
+            id: s,
+          })),
+        },
+      },
+    }),
+  );
+
+  if (groupError) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: "Internal Server Error",
+      message: "error-in-process",
+    });
+  }
+
+  return {
+    notification: createNotification("SUCCESS", {
+      message: "Ültetési csoport frissítve.",
+    }),
+  };
+});
