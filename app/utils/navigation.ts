@@ -70,16 +70,6 @@ export const adminMenuLevel2: DeepMenuList = [
       icon: "i-heroicons-window-solid",
     },
     {
-      label: "Ülőhelyek",
-      to: "/dashboard/admin/seats",
-      icon: "i-heroicons-map-pin-solid",
-    },
-    {
-      label: "Térképek",
-      to: "/dashboard/admin/maps",
-      icon: "i-heroicons-map-solid",
-    },
-    {
       label: "Üzenetküldés",
       to: "/dashboard/admin/message",
       icon: "i-heroicons-envelope-solid",
@@ -88,6 +78,23 @@ export const adminMenuLevel2: DeepMenuList = [
       label: "Discord",
       to: "/dashboard/admin/discord",
       icon: "i-fa6-brands-discord",
+    },
+  ],
+  [
+    {
+      label: "Ülőhelyek",
+      to: "/dashboard/admin/seats",
+      icon: "i-heroicons-map-pin-solid",
+    },
+    {
+      label: "Ültetési csoportok",
+      to: "/dashboard/admin/seatgroup",
+      icon: "i-heroicons-rectangle-group-solid",
+    },
+    {
+      label: "Térképek",
+      to: "/dashboard/admin/maps",
+      icon: "i-heroicons-map-solid",
     },
   ],
   [
