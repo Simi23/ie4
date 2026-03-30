@@ -1,0 +1,39 @@
+<mjml>
+  <mj-head>
+    <mj-title>Fontos információk</mj-title>
+  </mj-head>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image
+          src="https://infosokejszakaja.hu/wp-content/uploads/2026/03/mailheader.jpg"
+        >
+        </mj-image>
+
+        <mj-divider border-color="#154965"></mj-divider>
+
+        <mj-text
+          font-size="18px"
+          padding-top="0px"
+          color="#1d232b"
+          font-family="helvetica"
+        >
+          <h1>Kedves Játékos!</h1>
+          <p>
+            Tagja vagy egy (vagy több) olyan csapatnak, amelyben még nincs meg a
+            teljes létszám! Fontos, hogy ezt pótoljátok, mert
+            <b>{{ closeTime }}</b> ideiglenesen zárásra kerül a
+            versenyjelentkezés, és az akkori állapot alapján alakítják ki a
+            szervezők az ülésrendet.
+          </p>
+
+          <br />
+
+          <p><i>Infósok Éjszakája</i></p>
+        </mj-text>
+
+        <mj-divider border-color="#154965"></mj-divider>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

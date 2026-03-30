@@ -79,3 +79,13 @@ export async function passwordResetMail(
 
   await sendMail(recipient, "Jelszó visszaállítása - Infósok Éjszakája", html);
 }
+
+export async function unfullTeamMail(recipient: string, closeTime: string) {
+  const template = await loadTemplate("UnfullTeam.mjml");
+  const vars = renderTemplateVars(template, {
+    closeTime,
+  });
+  const html = renderTemplateMjml(vars);
+
+  await sendMail(recipient, "Fontos teendő - Infósok Éjszakája", html);
+}

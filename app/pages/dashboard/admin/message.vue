@@ -1,20 +1,38 @@
 <template>
-  <div class="p-5 md:p-7 lg:p-10">
+  <div class="flex flex-col gap-5 p-5 md:gap-7 md:p-7 lg:gap-10 lg:p-10">
     <UCard class="dark:bg-opacity-90">
       <template #header>
-        <h1 class="text-xl font-bold">Üzenetküldés</h1>
+        <h1 class="text-xl font-bold">Előtti napi információk</h1>
       </template>
-      <h2 class="mb-3 text-lg font-medium">Előtti napi információk</h2>
       <UForm
-        :state="messageState"
+        :state="beforeMessageState"
         class="w-96 max-w-96 space-y-6"
-        @submit.prevent="sendConfirm"
+        @submit.prevent="sendBeforeConfirm"
       >
         <UFormGroup name="openTime" label="Nyitási idő (pl. '16:00')">
-          <UInput v-model="messageState.openTime" />
+          <UInput v-model="beforeMessageState.openTime" />
         </UFormGroup>
         <UFormGroup name="startTime" label="Kezdési idő (pl. '17:00')">
-          <UInput v-model="messageState.startTime" />
+          <UInput v-model="beforeMessageState.startTime" />
+        </UFormGroup>
+        <UButton type="submit" label="Email küldése" />
+      </UForm>
+    </UCard>
+
+    <UCard class="dark:bg-opacity-90">
+      <template #header>
+        <h1 class="text-xl font-bold">Figyelmeztetés nem teljes csapatoknak</h1>
+      </template>
+      <UForm
+        :state="unfullMessageState"
+        class="w-96 max-w-96 space-y-6"
+        @submit.prevent="sendUnfullConfirm"
+      >
+        <UFormGroup
+          name="closeTime"
+          label="Versenyjelentkezés zárás időpontja (pl. 'április 1-jén, 20 órakor')"
+        >
+          <UInput v-model="unfullMessageState.closeTime" />
         </UFormGroup>
         <UButton type="submit" label="Email küldése" />
       </UForm>
@@ -33,33 +51,66 @@ definePageMeta({
   middleware: "auth",
 });
 
-const messageState = ref({
+const beforeMessageState = ref({
   openTime: "",
   startTime: "",
 });
 
-async function sendConfirm() {
+const unfullMessageState = ref({
+  closeTime: "",
+});
+
+async function sendBeforeConfirm() {
   modal.open(ModalConfirmAction, {
     title: "Küldés megerősítése",
     description: "Biztosan elküldöd az emailt az összes felhasználónak?",
     confirmText: "Igen",
     cancelText: "Nem",
     onSuccess: () => {
-      sendMail();
+      sendBeforeMail();
       modal.close();
     },
   });
 }
 
-async function sendMail() {
+async function sendBeforeMail() {
   loadingSpinner.value = true;
 
   const [error, resp] = await catchError(
     $fetchCsrfNotification<NotificationResponse>("/api/mail/mailbefore", {
       method: "POST",
       body: {
-        openTime: messageState.value.openTime,
-        startTime: messageState.value.startTime,
+        openTime: beforeMessageState.value.openTime,
+        startTime: beforeMessageState.value.startTime,
+      },
+    }),
+  );
+
+  loadingSpinner.value = false;
+}
+
+async function sendUnfullConfirm() {
+  modal.open(ModalConfirmAction, {
+    title: "Küldés megerősítése",
+    description:
+      "Biztosan elküldöd az emailt az összes érintett felhasználónak?",
+    confirmText: "Igen",
+    cancelText: "Nem",
+    onSuccess: () => {
+      sendUnfullMail();
+      modal.close();
+    },
+  });
+}
+
+async function sendUnfullMail() {
+  loadingSpinner.value = true;
+
+  const [error, resp] = await catchError(
+    $fetchCsrfNotification<NotificationResponse>("/api/mail/unfullteam", {
+      method: "POST",
+      body: {
+        closeTime: unfullMessageState.value.closeTime,
       },
     }),
   );
