@@ -35,6 +35,9 @@ model User {
     paid Boolean @default(false)
 
     topListEntries TopListEntry[]
+
+    seatingGroup   SeatingGroup? @relation(fields: [seatingGroupId], references: [id])
+    seatingGroupId String?
 }
 
 model Session {

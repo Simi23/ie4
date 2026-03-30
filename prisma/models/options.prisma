@@ -19,6 +19,20 @@ model Seat {
 
     name  String @unique
     owner User?
+
+    seatingGroup   SeatingGroup? @relation(fields: [seatingGroupId], references: [id])
+    seatingGroupId String?
+}
+
+model SeatingGroup {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+
+    users User[]
+    seats Seat[]
+
+    reason String?
 }
 
 model ClassGroup {
