@@ -2,6 +2,7 @@ import { prisma } from "~~/db/prismaClient";
 import { catchError } from "#server/utils/catchError";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";
+import { rejectCompFreeze } from "~~/server/data/compfreeze";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
@@ -13,6 +14,8 @@ export default defineEventHandler(async (event) => {
       message: "request-body-invalid",
     });
   }
+
+  await rejectCompFreeze();
 
   const [error, data] = await catchError(
     prisma.competition.findFirst({

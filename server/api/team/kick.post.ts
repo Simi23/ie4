@@ -4,6 +4,7 @@ import adminCheck from "#server/utils/adminCheck";
 import { catchError } from "#server/utils/catchError";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";
+import { rejectCompFreeze } from "~~/server/data/compfreeze";
 
 const requestSchema = z.object({
   kickId: z.string().cuid(),
@@ -24,6 +25,8 @@ export default defineEventHandler(async (event) => {
     });
   }
   const userId = event.context.user.id;
+
+  await rejectCompFreeze();
 
   const [leaderError, leader] = await catchError(
     prisma.userInTeam.findFirst({

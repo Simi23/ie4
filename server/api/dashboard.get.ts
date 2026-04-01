@@ -1,4 +1,5 @@
 import { prisma } from "~~/db/prismaClient";
+import { getCompFreeze } from "../data/compfreeze";
 
 type DashboardNotification = {
   severity: "INFO" | "WARN" | "ERROR";
@@ -79,14 +80,14 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  const [content, userStatus, teamMemberCount, defaultTeam] = await Promise.all(
-    [
+  const [content, userStatus, teamMemberCount, defaultTeam, compFreeze] =
+    await Promise.all([
       contentPromise,
       userStatusPromise,
       teamMemberCountPromise,
       defaultTeamPromise,
-    ],
-  );
+      getCompFreeze(),
+    ]);
 
   if (userStatus && userStatus.paid === false) {
     notifications.push({
@@ -132,6 +133,15 @@ export default defineEventHandler(async (event) => {
       severity: "WARN",
       title: "Figyelmeztetés",
       message: "Tagja vagy egy olyan csapatnak, amit még nem neveztek át.",
+    });
+  }
+
+  if (compFreeze) {
+    notifications.push({
+      severity: "INFO",
+      title: "Információ",
+      message:
+        "A versenyekre való jelentkezés átmenetileg szünetel. Bővebb információ lent találsz.",
     });
   }
 

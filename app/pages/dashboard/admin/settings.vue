@@ -6,6 +6,33 @@
           <h1 class="text-xl font-bold">Beállítások</h1>
         </template>
 
+        <div v-if="compFreeze" class="mb-6">
+          <h2 class="mb-2 text-lg font-semibold">Versenyjelentkezés állapot</h2>
+          <p class="mb-2">
+            Versenyjelentkezés állapota:
+            <span
+              :class="{
+                'text-emerald-500': !compFreeze.compFreeze,
+                'text-red-500': compFreeze.compFreeze,
+              }"
+              >{{ compFreeze.compFreeze ? "Zárva" : "Nyitva" }}</span
+            >
+          </p>
+          <UButton
+            size="xs"
+            color="emerald"
+            label="Nyitás"
+            class="mr-2"
+            @click="setCompFreeze(false)"
+          />
+          <UButton
+            size="xs"
+            color="red"
+            label="Zárás"
+            @click="setCompFreeze(true)"
+          />
+        </div>
+
         <h2 class="mb-2 text-lg font-semibold">Regisztrációs állapot</h2>
         <p>
           Regisztráció állapota:
@@ -13,7 +40,6 @@
             dRegOptions[regOption].text
           }}</span>
         </p>
-
         <URadioGroup v-model="regOptionSelection" :options="regOptions" />
         <UButton
           class="mr-2 mt-2 block"
@@ -269,6 +295,26 @@ const dRegOptions = [
   { text: "Nyitva", color: "text-emerald-500" },
   { text: "Lezárult", color: "text-red-500" },
 ];
+
+const { data: compFreeze, refresh: refreshCompFreeze } = await useFetch(
+  "/api/admin/compfreeze",
+);
+
+async function setCompFreeze(compFreeze: boolean) {
+  loadingSpinner.value = true;
+
+  const [reqError] = await catchError(
+    $fetchCsrfNotification<NotificationResponse>("/api/admin/compfreeze", {
+      method: "PUT",
+      body: {
+        compFreeze,
+      },
+    }),
+  );
+
+  await refreshCompFreeze();
+  loadingSpinner.value = false;
+}
 
 const { refresh: refreshMailSetting } = useFetch("/api/mail/setting", {
   method: "get",

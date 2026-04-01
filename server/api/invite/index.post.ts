@@ -4,6 +4,7 @@ import { catchError } from "#server/utils/catchError";
 import checkTeamLeader from "#server/utils/checkTeamLeader";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";
+import { rejectCompFreeze } from "~~/server/data/compfreeze";
 
 const bodySchema = z.object({
   teamId: z.string().cuid(),
@@ -31,6 +32,8 @@ export default defineEventHandler(async (event) => {
       message: "request-body-invalid",
     });
   }
+
+  await rejectCompFreeze();
 
   const isLeader = await checkTeamLeader(userId, body.data.teamId);
 

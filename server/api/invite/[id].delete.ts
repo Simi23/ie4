@@ -2,6 +2,7 @@ import { prisma } from "~~/db/prismaClient";
 import { catchError } from "#server/utils/catchError";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";
+import { rejectCompFreeze } from "~~/server/data/compfreeze";
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
@@ -15,6 +16,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const userId = event.context.user.id;
+
+  await rejectCompFreeze();
 
   const [error, data] = await catchError(
     prisma.invite.delete({

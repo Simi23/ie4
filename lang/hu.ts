@@ -60,6 +60,8 @@ const strings = {
   "dc-not-connected": "Nincs társított Discord fiók!",
   "error-assigning-dc-role":
     "Hiba lépett fel a Discord rang hozzárendelése során!",
+  "comp-freeze":
+    "A versenyekre való jelentkezés és ehhez kapcsolódó műveletek szünetelnek. Bővebb információkért olvasd el a főoldalon található tájékoztatót!",
 };
 
 export const huLang = new Proxy(strings, handler);
