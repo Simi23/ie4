@@ -1,5 +1,6 @@
 import { prisma } from "~~/db/prismaClient";
 import { getCompFreeze } from "../data/compfreeze";
+import { getSelfSeat } from "../data/selfseat";
 
 type DashboardNotification = {
   severity: "INFO" | "WARN" | "ERROR";
@@ -34,6 +35,12 @@ export default defineEventHandler(async (event) => {
       paid: true,
       emailVerified: true,
       dcConnected: true,
+      seatingGroupId: true,
+      seat: {
+        select: {
+          type: true,
+        },
+      },
     },
   });
 
@@ -80,14 +87,21 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  const [content, userStatus, teamMemberCount, defaultTeam, compFreeze] =
-    await Promise.all([
-      contentPromise,
-      userStatusPromise,
-      teamMemberCountPromise,
-      defaultTeamPromise,
-      getCompFreeze(),
-    ]);
+  const [
+    content,
+    userStatus,
+    teamMemberCount,
+    defaultTeam,
+    compFreeze,
+    selfSeat,
+  ] = await Promise.all([
+    contentPromise,
+    userStatusPromise,
+    teamMemberCountPromise,
+    defaultTeamPromise,
+    getCompFreeze(),
+    getSelfSeat(),
+  ]);
 
   if (userStatus && userStatus.paid === false) {
     notifications.push({
@@ -142,6 +156,20 @@ export default defineEventHandler(async (event) => {
       title: "Információ",
       message:
         "A versenyekre való jelentkezés átmenetileg szünetel. Bővebb információ lent találsz.",
+    });
+  }
+
+  if (
+    selfSeat &&
+    userStatus &&
+    userStatus.seatingGroupId !== null &&
+    userStatus.seat.type == "Registration"
+  ) {
+    notifications.push({
+      severity: "ERROR",
+      title: "Hiba",
+      message:
+        "Még nem választottál végleges ülőhelyet! Ezt a 'Fiókom' menüben teheted meg az ülőhely résznél.",
     });
   }
 

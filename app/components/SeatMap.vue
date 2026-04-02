@@ -4,6 +4,7 @@ interface Props {
   letterStroke?: string;
   seatStroke?: string;
   arrowStroke?: string;
+  multiColors?: string[][];
 }
 
 const {
@@ -11,6 +12,7 @@ const {
   letterStroke = "#000000",
   seatStroke = "#000000",
   arrowStroke = "#000000",
+  multiColors = [],
 } = defineProps<Props>();
 
 const emit = defineEmits(["chosenSeat"]);
@@ -224,15 +226,6 @@ defineExpose({
         height="100%"
         viewBox="0 0 500.00001 321.00001"
         version="1.1"
-        inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
-        sodipodi:docname="elrendezes2.svg"
-        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:svg="http://www.w3.org/2000/svg"
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:cc="http://creativecommons.org/ns#"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
       >
         <defs id="defs2">
           <marker
@@ -455,52 +448,19 @@ defineExpose({
               id="path1048-6-6"
             />
           </marker>
+          <linearGradient
+            v-for="g in multiColors"
+            :key="multiColorGradientId(g)"
+            :id="multiColorGradientId(g)"
+          >
+            <stop
+              v-for="s in multiColorGradient(g)"
+              :offset="`${s.location}%`"
+              :stop-color="s.color"
+            />
+          </linearGradient>
         </defs>
-        <sodipodi:namedview
-          id="base"
-          pagecolor="#ffffff"
-          bordercolor="#666666"
-          borderopacity="1.0"
-          inkscape:pageopacity="0.0"
-          inkscape:pageshadow="2"
-          inkscape:zoom="0.46520016"
-          inkscape:cx="1008.1682"
-          inkscape:cy="712.59648"
-          inkscape:document-units="mm"
-          inkscape:current-layer="layer1"
-          inkscape:document-rotation="0"
-          showgrid="false"
-          fit-margin-top="0"
-          fit-margin-left="0"
-          fit-margin-right="0"
-          fit-margin-bottom="0"
-          inkscape:window-width="1920"
-          inkscape:window-height="1128"
-          inkscape:window-x="0"
-          inkscape:window-y="0"
-          inkscape:window-maximized="1"
-          inkscape:showpageshadow="2"
-          inkscape:pagecheckerboard="0"
-          inkscape:deskcolor="#d1d1d1"
-        >
-          <inkscape:page
-            x="0"
-            y="0"
-            width="500"
-            height="321"
-            id="page1"
-            margin="0"
-            bleed="0"
-          />
-        </sodipodi:namedview>
-        <metadata id="metadata5">
-          <rdf:RDF>
-            <cc:Work rdf:about="">
-              <dc:format>image/svg+xml</dc:format>
-              <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-            </cc:Work>
-          </rdf:RDF>
-        </metadata>
+
         <g
           inkscape:label="R├ęteg 1"
           inkscape:groupmode="layer"

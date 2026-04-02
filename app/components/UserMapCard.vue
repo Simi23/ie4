@@ -16,6 +16,14 @@
           variant="soft"
           @click="openSeatSwap"
         />
+        <UButton
+          v-if="!adminMode && selfSeatOpen?.selfSeat"
+          label="Ülőhely kiválasztása"
+          icon="i-heroicons-map-pin-solid"
+          color="cyan"
+          variant="soft"
+          @click="openSelfSeat"
+        />
       </div>
     </template>
     <ClientOnly>
@@ -35,6 +43,7 @@
 import type { UserData } from "~/utils/types";
 import SeatMap from "~/components/SeatMap.vue";
 import ModalSeatSwap from "~/components/Modal/SeatSwap.vue";
+import { ModalSelfSeat } from "#components";
 
 type Props = {
   userId: string;
@@ -54,6 +63,8 @@ const { data: userData, refresh } = useFetch<UserData>(
   },
 );
 
+const { data: selfSeatOpen } = await useFetch("/api/admin/selfseat");
+
 function colorMap() {
   seatMap.value?.changeSeatColour("all", "#374151");
   seatMap.value?.changeSeatColour(userData?.value?.seat.name ?? "", "green");
@@ -68,6 +79,18 @@ function openSeatSwap() {
     userId: props.userId,
     username: userData.value?.username ?? "UNKNOWN",
     originalSeat: userData.value?.seat.name ?? "UNKNOWN",
+    onSuccess: () => {
+      modal.close();
+      refresh();
+    },
+  });
+}
+
+function openSelfSeat() {
+  modal.open(ModalSelfSeat, {
+    onCancel: () => {
+      modal.close();
+    },
     onSuccess: () => {
       modal.close();
       refresh();

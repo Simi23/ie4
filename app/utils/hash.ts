@@ -1,7 +1,11 @@
-import { createHash } from "crypto";
+export async function sha256(message: string) {
+  // Encode the string as a Uint8Array
+  const msgBuffer = new TextEncoder().encode(message);
 
-export function sha256(input: string): string {
-  let hasher = createHash("sha256");
-  hasher.update(input);
-  return hasher.digest("base64");
+  // Hash the message using SHA-256
+  const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+
+  const buffer = Buffer.from(hashBuffer);
+
+  return buffer.toString("base64");
 }

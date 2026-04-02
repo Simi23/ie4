@@ -33,6 +33,33 @@
           />
         </div>
 
+        <div v-if="selfSeat" class="mb-6">
+          <h2 class="mb-2 text-lg font-semibold">Önálló ültetés állapot</h2>
+          <p class="mb-2">
+            Önálló ültetés állapota:
+            <span
+              :class="{
+                'text-emerald-500': selfSeat.selfSeat,
+                'text-red-500': !selfSeat.selfSeat,
+              }"
+              >{{ selfSeat.selfSeat ? "Nyitva" : "Zárva" }}</span
+            >
+          </p>
+          <UButton
+            size="xs"
+            color="emerald"
+            label="Nyitás"
+            class="mr-2"
+            @click="setSelfSeat(true)"
+          />
+          <UButton
+            size="xs"
+            color="red"
+            label="Zárás"
+            @click="setSelfSeat(false)"
+          />
+        </div>
+
         <h2 class="mb-2 text-lg font-semibold">Regisztrációs állapot</h2>
         <p>
           Regisztráció állapota:
@@ -313,6 +340,26 @@ async function setCompFreeze(compFreeze: boolean) {
   );
 
   await refreshCompFreeze();
+  loadingSpinner.value = false;
+}
+
+const { data: selfSeat, refresh: refreshSelfSeat } = await useFetch(
+  "/api/admin/selfseat",
+);
+
+async function setSelfSeat(selfSeat: boolean) {
+  loadingSpinner.value = true;
+
+  const [reqError] = await catchError(
+    $fetchCsrfNotification<NotificationResponse>("/api/admin/selfseat", {
+      method: "PUT",
+      body: {
+        selfSeat,
+      },
+    }),
+  );
+
+  await refreshSelfSeat();
   loadingSpinner.value = false;
 }
 

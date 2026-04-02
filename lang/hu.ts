@@ -62,6 +62,10 @@ const strings = {
     "Hiba lépett fel a Discord rang hozzárendelése során!",
   "comp-freeze":
     "A versenyekre való jelentkezés és ehhez kapcsolódó műveletek szünetelnek. Bővebb információkért olvasd el a főoldalon található tájékoztatót!",
+  "no-self-seat": "Jelenleg nem lehet helyet foglalni.",
+  "self-seat-already-done":
+    "Már foglaltál magadnak helyet! Módosításhoz keress egy adminisztrátort!",
+  "self-seat-not-here": "Itt nem foglalhatsz helyet!",
 };
 
 export const huLang = new Proxy(strings, handler);

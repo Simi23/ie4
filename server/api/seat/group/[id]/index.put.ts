@@ -4,7 +4,7 @@ import { prisma } from "~~/db/prismaClient";
 const requestSchema = z.object({
   reason: z.string().optional(),
   userIds: z.array(z.string()),
-  seatIds: z.array(z.string()),
+  seatNames: z.array(z.string()),
 });
 
 export default defineEventHandler(async (event) => {
@@ -43,8 +43,8 @@ export default defineEventHandler(async (event) => {
           })),
         },
         seats: {
-          set: body.data.seatIds.map((s) => ({
-            id: s,
+          set: body.data.seatNames.map((s) => ({
+            name: s,
           })),
         },
       },

@@ -30,6 +30,12 @@ export default defineEventHandler(async (event) => {
                 },
               },
             },
+            seatingGroup: true,
+            class: {
+              select: {
+                name: true,
+              },
+            },
           },
           omit: {
             passwordHash: true,
