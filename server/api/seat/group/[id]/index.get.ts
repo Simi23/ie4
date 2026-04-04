@@ -19,10 +19,24 @@ export default defineEventHandler(async (event) => {
         id: groupId,
       },
       include: {
-        seats: true,
+        seats: {
+          select: {
+            name: true,
+            id: true,
+            owner: {
+              select: {
+                id: true,
+                fullname: true,
+                username: true,
+              },
+            },
+          },
+        },
         users: {
           select: {
+            id: true,
             fullname: true,
+            username: true,
             class: {
               select: {
                 name: true,

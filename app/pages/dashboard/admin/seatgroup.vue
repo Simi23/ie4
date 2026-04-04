@@ -152,12 +152,20 @@
           </ul>
         </template>
         <template #action-data="{ row }">
-          <UButton
-            label="Törlés"
-            color="red"
-            icon="i-heroicons-trash"
-            @click="deleteSeatGroup(row.id)"
-          />
+          <div class="flex flex-row gap-2">
+            <UButton
+              label="Törlés"
+              color="red"
+              icon="i-heroicons-trash"
+              @click="deleteSeatGroup(row.id)"
+            />
+            <UButton
+              label="Szerkesztés"
+              color="cyan"
+              icon="i-heroicons-pencil"
+              @click="editSeatGroup(row.id)"
+            />
+          </div>
         </template>
       </UTable>
     </UCard>
@@ -165,6 +173,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ModalSeatGroupEdit } from "#components";
 import type { TableColumn } from "#ui/types";
 
 definePageMeta({
@@ -588,6 +597,20 @@ async function deleteSeatGroup(id: string) {
   }
 
   loadingSpinner.value = false;
+}
+
+async function editSeatGroup(id: string) {
+  modal.open(ModalSeatGroupEdit, {
+    seatGroupId: id,
+    onCancel: () => {
+      modal.close();
+    },
+    onSuccess: () => {
+      modal.close();
+      refresh();
+      refreshSeatGroup();
+    },
+  });
 }
 </script>
 
