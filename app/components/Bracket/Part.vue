@@ -3,7 +3,7 @@
     <table
       class="bracket-border w-full min-w-36 bg-gray-900"
       :class="{
-        watched: props.cellData.tracked,
+        watched: props.cellData.tracked && props.admin,
       }"
     >
       <tbody>
@@ -63,6 +63,7 @@ import type { CellData } from "~/utils/types";
 
 const props = defineProps<{
   cellData: CellData;
+  admin: boolean;
 }>();
 
 const status = computed(() => {

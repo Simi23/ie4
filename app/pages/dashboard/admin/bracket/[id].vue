@@ -7,6 +7,17 @@
         <h1 class="text-xl font-bold">Adatok</h1>
       </template>
       <p>Létszám: {{ data?.numberOfCompetitors }}</p>
+      <p>
+        Megjelenítés:
+        <UButton
+          :to="`/bracket/${params.id}`"
+          target="_blank"
+          icon="i-heroicons-arrow-top-right-on-square"
+          label="Link"
+          class="ml-2"
+          size="xs"
+        />
+      </p>
       <UButton
         label="Feltöltés"
         icon="i-heroicons-user-group-solid"

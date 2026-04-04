@@ -207,6 +207,7 @@ onMounted(() => {
             <div v-if="cell.containsCell" class="flex justify-center">
               <BracketPart
                 :cell-data="cell.cellData"
+                :admin="editing"
                 :class="{ 'cell-editing': props.editing }"
                 @click="editPart(cell.cellData)"
               ></BracketPart>
