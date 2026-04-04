@@ -61,4 +61,8 @@ onMounted(async () => {
 });
 </script>
 
-<style></style>
+<style>
+#bracket {
+  transition: transform 0.5s ease-in-out;
+}
+</style>
