@@ -105,20 +105,27 @@
           </div>
 
           <ul class="pl-6">
-            <li v-for="team in comp.teams" :key="team.id">
-              <div class="flex flex-row flex-nowrap items-center gap-2">
-                <div
-                  class="size-4 rounded-md"
-                  :style="{ 'background-color': team.color }"
-                ></div>
-                <span class="font-semibold">{{ team.name }}</span>
-              </div>
-              <ul class="mb-4 pl-8">
-                <li v-for="member in team.members" :key="member.id">
-                  {{ member.fullname }}
-                </li>
-              </ul>
-            </li>
+            <template v-if="comp.teamCompetition">
+              <li v-for="team in comp.teams" :key="team.id">
+                <div class="flex flex-row flex-nowrap items-center gap-2">
+                  <div
+                    class="size-4 rounded-md"
+                    :style="{ 'background-color': team.color }"
+                  ></div>
+                  <span class="font-semibold">{{ team.name }}</span>
+                </div>
+                <ul class="mb-4 pl-8">
+                  <li v-for="member in team.members" :key="member.id">
+                    {{ member.fullname }}
+                  </li>
+                </ul>
+              </li>
+            </template>
+            <template v-else>
+              <li v-for="team in comp.teams" :key="team.id">
+                {{ team.members[0]?.fullname ?? "" }}
+              </li>
+            </template>
           </ul>
         </template>
         <UDivider class="my-8" v-if="index != coloredCompetitions.length - 1" />
@@ -160,6 +167,8 @@ definePageMeta({
   layout: "dashboard-admin",
   middleware: "auth",
 });
+
+const soloSeats = "#1381b6";
 
 const modal = useModal();
 const loadingSpinner = useLoadingSpinner();
@@ -257,6 +266,7 @@ const seatSelector = computed(() => {
 type CompetitionType = {
   id: string;
   title: string;
+  teamCompetition: boolean;
   teams: {
     id: string;
     name: string;
@@ -296,6 +306,7 @@ const competitions = computed(() => {
     for (let j = 0; j < userComps.length; j++) {
       const compId = userComps[j]?.team.competition.id;
       const compTitle = userComps[j]?.team.competition.title;
+      const isTeamComp = userComps[j]?.team.competition.teamCompetition;
       const teamId = userComps[j]?.team.id;
       const teamName = userComps[j]?.team.name;
 
@@ -305,7 +316,8 @@ const competitions = computed(() => {
         !teamId ||
         !teamName ||
         !userId ||
-        !userFullname
+        !userFullname ||
+        isTeamComp === undefined
       )
         continue;
 
@@ -313,6 +325,7 @@ const competitions = computed(() => {
         competitions.push({
           id: compId,
           title: compTitle,
+          teamCompetition: isTeamComp,
           teams: [],
         });
       }
@@ -348,6 +361,7 @@ const competitions = computed(() => {
 type ColoredCompetitionType = {
   id: string;
   title: string;
+  teamCompetition: boolean;
   teams: {
     id: string;
     name: string;
@@ -362,10 +376,13 @@ type ColoredCompetitionType = {
 };
 const coloredCompetitions = computed<ColoredCompetitionType[]>(() => {
   const output: ColoredCompetitionType[] = competitions.value.map((c) => {
-    const teamColors = generateColors(c.teams.length);
+    const teamColors = c.teamCompetition
+      ? generateColors(c.teams.length)
+      : repeatColor(soloSeats, c.teams.length);
     return {
       id: c.id,
       title: c.title,
+      teamCompetition: c.teamCompetition,
       teams: c.teams.map((t, it) => ({
         id: t.id,
         name: t.name,

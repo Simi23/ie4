@@ -9,6 +9,16 @@ export function generateColors(teamCount: number) {
   return cols;
 }
 
+export function repeatColor(color: string, n: number) {
+  const cols: string[] = [];
+
+  for (let i = 0; i < n; i++) {
+    cols.push(color);
+  }
+
+  return cols;
+}
+
 export function multiColorGradientId(colors: string[]) {
   return btoa(colors.join(";;"))
     .replaceAll("+", "")
