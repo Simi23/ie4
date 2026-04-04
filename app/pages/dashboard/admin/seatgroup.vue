@@ -142,11 +142,15 @@
         :columns="seatGroupColumns"
       >
         <template #users-data="{ row }">
-          {{ row.users.map((u: any) => u.fullname).join(", ") }}
+          <ul>
+            <li v-for="user in row.users">{{ user.fullname }}</li>
+          </ul>
         </template>
-        <template #seats-data="{ row }">{{
-          row.seats.map((s: any) => s.name).join(", ")
-        }}</template>
+        <template #seats-data="{ row }">
+          <ul>
+            <li v-for="seat in row.seats">{{ seat.name }}</li>
+          </ul>
+        </template>
         <template #action-data="{ row }">
           <UButton
             label="Törlés"
