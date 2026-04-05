@@ -1,0 +1,42 @@
+model BracketSchedule {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+
+    bracket   Bracket @relation(fields: [bracketId], references: [id], onDelete: Cascade)
+    bracketId String  @unique
+
+    order Int
+
+    defaultMedia   Media?  @relation(fields: [defaultMediaId], references: [id], onDelete: NoAction)
+    defaultMediaId String?
+}
+
+model BracketPartSchedule {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+
+    bracketParts BracketPart[]
+
+    startTime DateTime @db.Timestamptz()
+    timeZone  String
+
+    started Boolean
+
+    media   Media?  @relation(fields: [mediaId], references: [id], onDelete: NoAction)
+    mediaId String?
+}
+
+model EventSchedule {
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    updatedAt DateTime? @updatedAt
+
+    title       String
+    smallTitle  String?
+    description String?
+
+    media   Media?  @relation(fields: [mediaId], references: [id], onDelete: NoAction)
+    mediaId String?
+}

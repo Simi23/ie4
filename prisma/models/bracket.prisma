@@ -13,6 +13,9 @@ model Bracket {
     parts BracketPart[]
 
     displays DisplayContent[]
+
+    bracketSchedule   BracketSchedule?
+    bracketScheduleId String?
 }
 
 model BracketPart {
@@ -37,4 +40,7 @@ model BracketPart {
     teamId String?
 
     isTracked Boolean @default(false)
+
+    bracketPartSchedule   BracketPartSchedule? @relation(fields: [bracketPartScheduleId], references: [id], onDelete: NoAction)
+    bracketPartScheduleId String?
 }

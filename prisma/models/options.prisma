@@ -74,8 +74,11 @@ model Media {
     type MediaType
 
     // References
-    competitions Competition[]
-    displays     DisplayContent[]
+    competitions         Competition[]
+    displays             DisplayContent[]
+    bracketSchedules     BracketSchedule[]
+    bracketPartSchedules BracketPartSchedule[]
+    eventSchedules       EventSchedule[]
 }
 
 enum MediaType {
