@@ -79,6 +79,8 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       Roboto: true,
+      Inter: true,
+      Inconsolata: true,
     },
   },
   nitro: {

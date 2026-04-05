@@ -11,6 +11,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["Inter"],
+        inconsolata: ["Inconsolata"],
+      },
       backgroundImage: {
         "mail-bg": "url('https://i.imgur.com/I9gDeaL.png')",
         "web-bg": "url('/background2.webp')",

@@ -126,9 +126,9 @@ export const adminMenuLevel2: DeepMenuList = [
       icon: "i-heroicons-table-cells-solid",
     },
     {
-      label: "Rangsorok",
-      to: "/dashboard/admin/toplist",
-      icon: "i-heroicons-numbered-list-solid",
+      label: "Menetrend",
+      to: "/dashboard/admin/schedule",
+      icon: "i-heroicons-clock-solid",
     },
   ],
 ];
