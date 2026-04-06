@@ -5,6 +5,7 @@ import adminCheck from "#server/utils/adminCheck";
 import { catchError } from "#server/utils/catchError";
 import createNotification from "#server/utils/createNotification";
 import { logEventAction } from "#server/utils/logger";
+import { calculateBracketSize } from "~~/server/utils/bracket";
 
 interface BracketPart {
   round: number;
@@ -174,18 +175,4 @@ function calculateBracketParts(numberOfCompetitors: number) {
   }
 
   return output;
-}
-
-function calculateBracketSize(numberOfCompetitors: number) {
-  const rounds = nLog(2, numberOfCompetitors);
-  const roundCount = Math.ceil(rounds);
-  const fullRoundCount = Math.floor(rounds);
-  return {
-    roundCount,
-    fullRoundCount,
-  };
-}
-
-function nLog(n: number, x: number) {
-  return Math.log(x) / Math.log(n);
 }

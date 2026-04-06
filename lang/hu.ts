@@ -66,6 +66,7 @@ const strings = {
   "self-seat-already-done":
     "Már foglaltál magadnak helyet! Módosításhoz keress egy adminisztrátort!",
   "self-seat-not-here": "Itt nem foglalhatsz helyet!",
+  "event-not-found": "Esemény nem található.",
 };
 
 export const huLang = new Proxy(strings, handler);
