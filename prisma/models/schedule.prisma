@@ -23,6 +23,7 @@ model BracketPartSchedule {
     timeZone  String
 
     started Boolean
+    show    Boolean
 
     media   Media?  @relation(fields: [mediaId], references: [id], onDelete: NoAction)
     mediaId String?
@@ -35,6 +36,9 @@ model EventSchedule {
 
     startTime DateTime @db.Timestamptz()
     timeZone  String
+
+    started Boolean
+    show    Boolean
 
     title       String
     smallTitle  String?
