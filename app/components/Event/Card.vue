@@ -53,9 +53,6 @@
 
 <script lang="ts" setup>
 type Props = {
-  title: string;
-  teamA: string;
-  teamB: string;
   backgroundUrl: string;
   startTime: number;
   started: boolean;
