@@ -79,7 +79,7 @@ const card3 = ref({
   title: "League of Legends: döntő",
   teamA: "Adom vissza a vezérlést",
   teamB: "League of Boosted",
-  backgroundUrl: "/images/cmnm0zwcp0006b0kulbbx5myh.png",
+  backgroundUrl: "/images/cmnmafsvx0000pfkuywxqd4a2.png",
   startTime: Date.now() + 130 * 60 * 1000,
   started: false,
 });

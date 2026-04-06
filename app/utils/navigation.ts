@@ -125,10 +125,22 @@ export const adminMenuLevel2: DeepMenuList = [
       to: "/dashboard/admin/brackets",
       icon: "i-heroicons-table-cells-solid",
     },
+  ],
+  [
     {
       label: "Menetrend",
       to: "/dashboard/admin/schedule",
       icon: "i-heroicons-clock-solid",
+    },
+    {
+      label: "Versenyek sorrendje",
+      to: "/dashboard/admin/comporder",
+      icon: "i-heroicons-numbered-list",
+    },
+    {
+      label: "Mérkőzések",
+      to: "/dashboard/admin/matches",
+      icon: "i-heroicons-squares-2x2-solid",
     },
   ],
 ];
