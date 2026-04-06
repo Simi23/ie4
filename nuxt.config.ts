@@ -119,7 +119,7 @@ export default defineNuxtConfig({
     enabled: true,
     cookieKey: "csrf-token",
     cookie: {
-      httpOnly: false,
+      httpOnly: true,
     },
     https: true,
   },
