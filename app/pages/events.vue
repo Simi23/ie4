@@ -37,18 +37,28 @@
     <div class="relative mb-2 mt-4 shrink grow basis-auto overflow-y-hidden">
       <VerticalMarquee>
         <div class="flex flex-col flex-nowrap gap-4 p-2">
-          <EventCard v-bind="card1">
-            <EventCompetition v-bind="card1" />
-          </EventCard>
-          <EventCard v-bind="card2">
-            <EventCompetition v-bind="card2" />
-          </EventCard>
-          <EventCard v-bind="card3">
-            <EventGeneral
-              title="Kapunyitás"
-              description="A kapu 10 percig lesz nyitva"
-            />
-          </EventCard>
+          <template v-if="data">
+            <EventCard
+              v-for="event in data.events"
+              :key="event.id"
+              :start-time="event.startTime"
+              :background-url="event.backgroundUrl ?? ''"
+              :started="event.started"
+            >
+              <EventCompetition
+                v-if="event.type === 'match'"
+                :title="event.data.title"
+                :team-a="event.data.teamA"
+                :team-b="event.data.teamB"
+              />
+              <EventGeneral
+                v-else-if="event.type === 'general'"
+                :title="event.data.title"
+                :description="event.data.description"
+                :small-title="event.data.smallTitle"
+              />
+            </EventCard>
+          </template>
         </div>
       </VerticalMarquee>
     </div>
@@ -58,39 +68,9 @@
 <script lang="ts" setup>
 const now = useNow();
 
-const card1 = ref({
-  title: "Counter-Strike 2: 1. kör",
-  teamA: "Lanon Nincsen Demó",
-  teamB: "Medgyesegyházi szeretetszolgálat",
-  backgroundUrl: "/images/cmnlqmcsy0002b0kuezen1g04.png",
-  startTime: Date.now() + 10 * 60 * 1000,
-  started: true,
-});
+const { data, refresh } = useFetch("/api/event/schedule");
 
-const card2 = ref({
-  title: "League of Legends: döntő",
-  teamA: "Adom vissza a vezérlést",
-  teamB: "League of Boosted",
-  backgroundUrl: "/images/cmnlwp6250004b0kusjjmy613.png",
-  startTime: Date.now() + 130 * 60 * 1000,
-  started: false,
-});
-const card3 = ref({
-  title: "League of Legends: döntő",
-  teamA: "Adom vissza a vezérlést",
-  teamB: "League of Boosted",
-  backgroundUrl: "/images/cmnmafsvx0000pfkuywxqd4a2.png",
-  startTime: Date.now() + 130 * 60 * 1000,
-  started: false,
-});
-
-// const timeString = computed(() =>
-//   now.value.toLocaleString("hu-HU", {
-//     hour: "2-digit",
-//     minute: "2-digit",
-//     second: "2-digit",
-//   }),
-// );
+useIntervalFn(refresh, 5000);
 </script>
 
 <style></style>

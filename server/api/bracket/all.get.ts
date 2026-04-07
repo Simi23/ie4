@@ -1,4 +1,5 @@
 import { prisma } from "~~/db/prismaClient";
+import { roundNameFromNumberOfCompetitors } from "~~/server/utils/bracket";
 
 export default defineEventHandler(async (event) => {
   adminCheck(event, 2);
@@ -37,6 +38,11 @@ export default defineEventHandler(async (event) => {
             bracketPartSchedule: true,
           },
         },
+        competition: {
+          select: {
+            teamCompetition: true,
+          },
+        },
       },
     }),
   );
@@ -57,12 +63,20 @@ export default defineEventHandler(async (event) => {
     b.parts.forEach((part) => {
       // Get the round
       if (rounds.every((r) => r.id !== part.round)) {
-        rounds.push({ id: part.round, matches: [] });
+        rounds.push({
+          id: part.round,
+          name: roundNameFromNumberOfCompetitors(
+            b.numberOfCompetitors,
+            part.round,
+          ),
+          matches: [],
+        });
       }
       const round = rounds.find((r) => r.id === part.round)!;
 
       const partSchedule = part.bracketPartSchedule
         ? {
+            id: part.bracketPartSchedule.id,
             startTime: part.bracketPartSchedule.startTime.getTime(),
             timeZone: part.bracketPartSchedule.timeZone,
           }
@@ -78,6 +92,7 @@ export default defineEventHandler(async (event) => {
           waitReason: [],
           teams: [],
           schedule: partSchedule,
+          tracked: part.isTracked,
         });
       }
       const match = round.matches.find(
@@ -88,8 +103,11 @@ export default defineEventHandler(async (event) => {
       if (match.teams.every((t) => t.id !== part.teamId) && part.team) {
         match.teams.push({
           id: part.team.id,
+          bracketPartId: part.id,
           name: part.team.name,
           won: part.won,
+          points: part.points,
+          order: part.upper ? 0 : 1,
           users: part.team.users.map((u) => ({
             id: u.user.id,
             fullname: u.user.fullname,
@@ -102,12 +120,19 @@ export default defineEventHandler(async (event) => {
     // Sort the rounds by round id
     rounds.sort((r1, r2) => r1.id - r2.id);
 
+    // Sort the teams by order
+    rounds.forEach((r) =>
+      r.matches.forEach((m) => m.teams.sort((t1, t2) => t1.order - t2.order)),
+    );
+
     return {
       id: b.id,
       title: b.title,
       administrativeTitle: b.administrativeTitle,
       numberOfCompetitors: b.numberOfCompetitors,
       scheduleOrder: b.bracketSchedule!.order,
+      teamCompetition: b.competition.teamCompetition,
+      defaultMediaId: b.bracketSchedule!.defaultMediaId,
       rounds: rounds,
     };
   });
@@ -175,6 +200,7 @@ export default defineEventHandler(async (event) => {
                 round: {
                   id: r.id,
                   location: offendingMatch.roundLocation,
+                  name: r.name,
                 },
               });
             }
@@ -205,6 +231,7 @@ type Reason = {
   round: {
     id: number;
     location: number;
+    name: string;
   };
 };
 
@@ -215,25 +242,33 @@ type ScheduledBracketInfo = {
   administrativeTitle: string;
   numberOfCompetitors: number;
   scheduleOrder: number;
+  teamCompetition: boolean;
+  defaultMediaId: string | null;
   rounds: RoundInfo[];
 };
 
 type RoundInfo = {
   id: number; // zero-indexed
+  name: string;
   matches: {
     schedule?: {
+      id: string;
       startTime: number;
       timeZone: string;
     };
     roundLocation: number;
     started: boolean;
     ended: boolean;
+    tracked: boolean;
     canStart: boolean;
     waitReason: Reason[];
     teams: {
       id: string;
+      bracketPartId: string;
+      order: number;
       name: string;
       won: boolean;
+      points: number[];
       users: {
         id: string;
         fullname: string;

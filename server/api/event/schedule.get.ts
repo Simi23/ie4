@@ -1,4 +1,5 @@
 import { prisma } from "~~/db/prismaClient";
+import { roundNameFromNumberOfCompetitors } from "~~/server/utils/bracket";
 
 export default defineEventHandler(async (event) => {
   const [generalError, generalEvents] = await catchError(
@@ -75,9 +76,11 @@ export default defineEventHandler(async (event) => {
   // Convert and add general events
   events.push(
     ...generalEvents.map((e) => ({
+      id: e.id,
       startTime: e.startTime.getTime(),
       timeZone: e.timeZone,
       backgroundUrl: e.media?.url,
+      started: e.started,
       type: "general" as const,
       data: {
         title: e.title,
@@ -103,13 +106,24 @@ export default defineEventHandler(async (event) => {
         teamNames.fill("?", teamNames.length, 1);
       }
 
+      const currentRound = e.bracketParts[0]!.round;
+      const noOfComp = e.bracketParts[0]!.bracket.numberOfCompetitors;
+      const roundName = roundNameFromNumberOfCompetitors(
+        noOfComp,
+        currentRound,
+      );
+      const bracketTitle = e.bracketParts[0]!.bracket.title;
+      const title = `${bracketTitle}: ${roundName}`;
+
       return {
+        id: e.id,
         startTime: e.startTime.getTime(),
         timeZone: e.timeZone,
         backgroundUrl: e.media?.url,
+        started: e.started,
         type: "match" as const,
         data: {
-          title: e.bracketParts[0]!.bracket.title,
+          title,
           teamA: teamNames[0]!,
           teamB: teamNames[1]!,
         },
@@ -127,8 +141,10 @@ export default defineEventHandler(async (event) => {
 });
 
 type EventType = {
+  id: string;
   startTime: number;
   timeZone: string;
+  started: boolean;
   backgroundUrl?: string;
 } & (
   | {
