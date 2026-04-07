@@ -41,6 +41,6 @@ model BracketPart {
 
     isTracked Boolean @default(false)
 
-    bracketPartSchedule   BracketPartSchedule? @relation(fields: [bracketPartScheduleId], references: [id], onDelete: NoAction)
+    bracketPartSchedule   BracketPartSchedule? @relation(fields: [bracketPartScheduleId], references: [id], onDelete: SetNull)
     bracketPartScheduleId String?
 }
