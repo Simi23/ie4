@@ -3,7 +3,7 @@ import { prisma } from "~~/db/prismaClient";
 import { fromZonedTime } from "date-fns-tz";
 
 const requestSchema = z.object({
-  startTime: z.string(),
+  startTime: z.number(),
   timeZone: z.string(),
   started: z.boolean(),
   show: z.boolean(),

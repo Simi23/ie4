@@ -35,7 +35,7 @@
     </div>
     <!-- CARDS -->
     <div class="relative mb-2 mt-4 shrink grow basis-auto overflow-y-hidden">
-      <VerticalMarquee>
+      <VerticalMarquee :duration="duration">
         <div class="flex flex-col flex-nowrap gap-4 p-2">
           <template v-if="data">
             <EventCard
@@ -69,6 +69,13 @@
 const now = useNow();
 
 const { data, refresh } = useFetch("/api/event/schedule");
+
+const duration = computed(() => {
+  const length = data.value?.events.length;
+  if (!length) return "10s";
+
+  return `${length * 10}s`;
+});
 
 useIntervalFn(refresh, 5000);
 </script>

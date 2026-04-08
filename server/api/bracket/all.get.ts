@@ -79,6 +79,9 @@ export default defineEventHandler(async (event) => {
             id: part.bracketPartSchedule.id,
             startTime: part.bracketPartSchedule.startTime.getTime(),
             timeZone: part.bracketPartSchedule.timeZone,
+            started: part.bracketPartSchedule.started,
+            show: part.bracketPartSchedule.show,
+            mediaId: part.bracketPartSchedule.mediaId ?? undefined,
           }
         : undefined;
 
@@ -255,6 +258,9 @@ type RoundInfo = {
       id: string;
       startTime: number;
       timeZone: string;
+      started: boolean;
+      show: boolean;
+      mediaId?: string;
     };
     roundLocation: number;
     started: boolean;

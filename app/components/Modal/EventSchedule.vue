@@ -3,12 +3,10 @@
     <UCard>
       <template #header>
         <h1 class="text-2xl font-bold">
-          {{
-            init ? "Meccs menetrend szerkesztése" : "Meccs menetrendre vétele"
-          }}
+          Esemény {{ init ? "szerkesztése" : "felvétele" }}
         </h1>
       </template>
-      <UForm :state="state" :schema="schema" @submit.prevent="scheduleEvent">
+      <UForm :state="state" :schema="schema" @submit="scheduleEvent">
         <div class="space-y-4">
           <UFormGroup label="Időpont" name="date">
             <div class="flex flex-col flex-nowrap gap-1">
@@ -43,11 +41,28 @@
           <UFormGroup label="Háttér" name="mediaId">
             <MediaSelect v-model="state.mediaId" />
           </UFormGroup>
+          <UFormGroup label="Cím" name="title">
+            <UInput v-model="state.title" />
+          </UFormGroup>
+          <UFormGroup
+            label="Kis cím (felső)"
+            name="smallTitle"
+            description="Nem kötelező"
+          >
+            <UInput v-model="state.smallTitle" />
+          </UFormGroup>
+          <UFormGroup
+            label="Leírás"
+            name="description"
+            description="Nem kötelező"
+          >
+            <UInput v-model="state.description" />
+          </UFormGroup>
           <div class="flex flex-row flex-nowrap justify-end">
             <UButton
               class="mt-6"
               type="submit"
-              :label="`Időpont ${init ? 'mentése' : 'létrehozása'}`"
+              :label="`Esemény ${init ? 'mentése' : 'létrehozása'}`"
               icon="i-heroicons-plus"
               :disabled="loading"
               :loading="loading"
@@ -65,14 +80,15 @@ import z from "zod";
 const loading = ref(false);
 
 type Props = {
-  bracketPartIds: string[];
-  defaultMediaId: string;
   init?: {
     id: string;
     startTime: Date;
     started: boolean;
     show: boolean;
+    title: string;
     mediaId?: string;
+    smallTitle?: string;
+    description?: string;
   };
 };
 const props = defineProps<Props>();
@@ -91,8 +107,10 @@ const state = ref({
   },
   started: props.init?.started ?? false,
   show: props.init?.show ?? false,
-  mediaId: props.init?.mediaId ?? props.defaultMediaId,
-  bracketPartIds: props.bracketPartIds,
+  mediaId: props.init?.mediaId ?? "",
+  title: props.init?.title ?? "",
+  smallTitle: props.init?.smallTitle ?? "",
+  description: props.init?.description ?? "",
 });
 
 const calcDate = computed(() => {
@@ -116,39 +134,35 @@ const schema = z.object({
   started: z.boolean(),
   show: z.boolean(),
   mediaId: z.string().optional(),
-  bracketPartIds: z.array(z.string()).length(2),
+  title: z.string(),
+  smallTitle: z.string().optional(),
+  description: z.string().optional(),
 });
-
-async function scheduleEvent() {
-  if (props.init) {
-    await updateEvent();
-  } else {
-    await scheduleNewEvent();
-  }
-}
 
 async function scheduleNewEvent() {
   loading.value = true;
 
   const [err] = await catchError(
-    $fetchCsrfNotification<NotificationResponse>("/api/event/match", {
+    $fetchCsrfNotification<NotificationResponse>("/api/event/general", {
       method: "POST",
       body: {
         startTime: calcDate.value.getTime(),
         timeZone: "Europe/Budapest",
         started: state.value.started,
         show: state.value.show,
+        title: state.value.title,
+        smallTitle: state.value.smallTitle,
+        description: state.value.description,
         mediaId: state.value.mediaId,
-        bracketPartIds: state.value.bracketPartIds,
       },
     }),
   );
 
-  loading.value = false;
-
   if (!err) {
     emit("success");
   }
+
+  loading.value = false;
 }
 
 async function updateEvent() {
@@ -156,7 +170,7 @@ async function updateEvent() {
 
   const [err] = await catchError(
     $fetchCsrfNotification<NotificationResponse>(
-      `/api/event/match/${props.init?.id}`,
+      `/api/event/general/${props.init!.id}`,
       {
         method: "PUT",
         body: {
@@ -164,17 +178,27 @@ async function updateEvent() {
           timeZone: "Europe/Budapest",
           started: state.value.started,
           show: state.value.show,
+          title: state.value.title,
+          smallTitle: state.value.smallTitle,
+          description: state.value.description,
           mediaId: state.value.mediaId,
-          bracketPartIds: state.value.bracketPartIds,
         },
       },
     ),
   );
 
-  loading.value = false;
-
   if (!err) {
     emit("success");
+  }
+
+  loading.value = false;
+}
+
+async function scheduleEvent() {
+  if (props.init) {
+    await updateEvent();
+  } else {
+    await scheduleNewEvent();
   }
 }
 </script>
