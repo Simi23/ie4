@@ -2,7 +2,7 @@
   <div
     class="eventcard h-96 w-full rounded-md p-4 ring-2 ring-cyan-950"
     :style="{
-      '--bgurl': `url(${backgroundUrl})`,
+      '--bgurl': `url(${imageUrl})`,
     }"
   >
     <div
@@ -58,6 +58,13 @@ type Props = {
   started: boolean;
 };
 const props = defineProps<Props>();
+const img = useImage();
+
+const imageUrl = computed(() => {
+  const link = img(props.backgroundUrl);
+
+  return link;
+});
 </script>
 
 <style scoped>
