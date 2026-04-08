@@ -18,7 +18,11 @@
           >
             <h4 class="text-lg font-bold">{{ round.name }}</h4>
             <div class="flex flex-row flex-wrap gap-2">
-              <UCard v-for="match in round.matches">
+              <UCard
+                v-for="match in round.matches.toSorted(
+                  (m1, m2) => m1.roundLocation - m2.roundLocation,
+                )"
+              >
                 <template #header>
                   <h2 class="text-lg font-semibold">
                     Meccs

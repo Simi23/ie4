@@ -2,6 +2,18 @@
   <div class="space-y-5 p-5 md:space-y-7 md:p-7 lg:space-y-10 lg:p-10">
     <UCard class="dark:bg-opacity-90">
       <template #header>
+        <h1 class="text-xl font-bold">Megjelenítés</h1>
+      </template>
+
+      <UButton
+        icon="i-heroicons-arrow-top-right-on-square"
+        label="Link"
+        to="/events"
+        target="_blank"
+      />
+    </UCard>
+    <UCard class="dark:bg-opacity-90">
+      <template #header>
         <div class="flex items-center justify-between">
           <h1 class="text-xl font-bold">Általános események</h1>
           <UButton
