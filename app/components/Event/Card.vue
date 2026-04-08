@@ -26,20 +26,9 @@
           <template v-else>
             <p class="text-2xl font-semibold uppercase text-gray-400">Kezdés</p>
             <div class="text-8xl font-semibold text-gray-50">
-              <NuxtTime
-                :datetime="startTime"
-                hour="2-digit"
-                :hour12="false"
-                locale="hu-HU"
-                class="font-inconsolata"
-              />
+              <span class="font-inconsolata">{{ time.h }}</span>
               <span class="mx-2 text-7xl text-gray-200">:</span>
-              <NuxtTime
-                :datetime="startTime"
-                minute="2-digit"
-                locale="hu-HU"
-                class="font-inconsolata"
-              />
+              <span class="font-inconsolata">{{ time.m }}</span>
             </div>
             <div class="text-4xl text-gray-300">
               <NuxtTime :datetime="startTime" relative locale="hu-HU" />
@@ -59,11 +48,27 @@ type Props = {
 };
 const props = defineProps<Props>();
 const img = useImage();
+const isMounted = ref(false);
 
 const imageUrl = computed(() => {
   const link = img(props.backgroundUrl);
 
   return link;
+});
+
+const time = computed(() => {
+  if (!isMounted.value) return { h: "00", m: "00" };
+  const formatter = new Intl.DateTimeFormat("hu-HU", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const [h, _, m] = formatter.formatToParts(props.startTime);
+  return { h: h?.value ?? "00", m: m?.value ?? "00" };
+});
+
+onMounted(() => {
+  isMounted.value = true;
 });
 </script>
 
