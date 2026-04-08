@@ -9,27 +9,11 @@
       <div class="text-right">
         <p class="text-2xl font-medium text-gray-500">JELENLEGI IDŐ</p>
         <div class="text-8xl font-semibold text-cyan-500">
-          <NuxtTime
-            :datetime="now"
-            hour="2-digit"
-            :hour12="false"
-            locale="hu-HU"
-            class="font-inconsolata"
-          />
+          <span class="font-inconsolata">{{ time.h }}</span>
           <span class="mx-2 text-7xl text-cyan-800">:</span>
-          <NuxtTime
-            :datetime="now"
-            minute="2-digit"
-            locale="hu-HU"
-            class="font-inconsolata"
-          />
+          <span class="font-inconsolata">{{ time.m }}</span>
           <span class="mx-2 text-7xl text-cyan-800">:</span>
-          <NuxtTime
-            :datetime="now"
-            second="2-digit"
-            locale="hu-HU"
-            class="font-inconsolata"
-          />
+          <span class="font-inconsolata">{{ time.s }}</span>
         </div>
       </div>
     </div>
@@ -77,7 +61,24 @@ const duration = computed(() => {
   return `${length * 10}s`;
 });
 
+const isMounted = ref(false);
+const time = computed(() => {
+  if (!isMounted.value) return { h: "00", m: "00", s: "00" };
+  const formatter = new Intl.DateTimeFormat("hu-HU", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
+  const [h, _1, m, _2, s] = formatter.formatToParts(now.value);
+  return { h: h?.value ?? "00", m: m?.value ?? "00", s: s?.value ?? "00" };
+});
+
 useIntervalFn(refresh, 5000);
+
+onMounted(() => {
+  isMounted.value = true;
+});
 </script>
 
 <style></style>
