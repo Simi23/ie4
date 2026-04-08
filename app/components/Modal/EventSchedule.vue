@@ -146,7 +146,13 @@ async function scheduleNewEvent() {
     $fetchCsrfNotification<NotificationResponse>("/api/event/general", {
       method: "POST",
       body: {
-        startTime: calcDate.value.getTime(),
+        startTime: getTimeString(
+          state.value.date.year,
+          state.value.date.month,
+          state.value.date.day,
+          state.value.date.hour,
+          state.value.date.minute,
+        ),
         timeZone: "Europe/Budapest",
         started: state.value.started,
         show: state.value.show,
@@ -174,7 +180,13 @@ async function updateEvent() {
       {
         method: "PUT",
         body: {
-          startTime: calcDate.value.getTime(),
+          startTime: getTimeString(
+            state.value.date.year,
+            state.value.date.month,
+            state.value.date.day,
+            state.value.date.hour,
+            state.value.date.minute,
+          ),
           timeZone: "Europe/Budapest",
           started: state.value.started,
           show: state.value.show,

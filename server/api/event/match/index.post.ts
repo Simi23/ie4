@@ -3,7 +3,7 @@ import z from "zod";
 import { prisma } from "~~/db/prismaClient";
 
 const requestSchema = z.object({
-  startTime: z.number(),
+  startTime: z.string(),
   timeZone: z.string(),
   started: z.boolean(),
   show: z.boolean(),
