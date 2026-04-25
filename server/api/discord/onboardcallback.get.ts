@@ -42,7 +42,9 @@ export default defineEventHandler(async (event) => {
   );
 
   if (error) {
+    console.error("Error map onboardcallback/1");
     console.error(error);
+    console.error(error.message);
     return;
   }
 
@@ -57,7 +59,9 @@ export default defineEventHandler(async (event) => {
   );
 
   if (userError) {
-    console.error(error);
+    console.error("Error map onboardcallback/2");
+    console.error(userError);
+    console.error(userError.message);
     return;
   }
 
@@ -73,6 +77,10 @@ export default defineEventHandler(async (event) => {
   );
 
   if (dcGetError || dcGet) {
+    console.error("Error map onboardcallback/3");
+    if (dcGetError) {
+      console.error(dcGetError);
+    }
     return sendRedirect(
       event,
       `${cfg.public.siteName}/dashboard/settings?notification=alreadylinked`,
@@ -94,6 +102,9 @@ export default defineEventHandler(async (event) => {
   );
 
   if (linkError) {
+    console.error("Error map onboardcallback/4");
+    console.error(linkError);
+    console.error(linkError.message);
     return sendRedirect(
       event,
       `${cfg.public.siteName}/dashboard/settings?notification=linkerror`,
